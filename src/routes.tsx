@@ -1,5 +1,5 @@
 import { lazy } from 'react'
-import { useRoutes, Navigate } from 'react-router-dom'
+import { Navigate } from 'react-router-dom'
 import Home from '@/pages/home';
 import Suffer from '@/pages/suffer';
 import Visit from '@/pages/visit';
