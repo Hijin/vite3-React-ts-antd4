@@ -4,7 +4,6 @@ import path from 'path'
 
 // https://vitejs.dev/config/
 const isProduction = process.env.NODE_ENV === 'production'
-console.log(process.env.NODE_ENV === 'production');
 
 export default defineConfig({
   base:isProduction?'/researchpc/':'/',

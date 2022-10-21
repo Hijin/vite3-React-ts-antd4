@@ -1,25 +1,20 @@
-import HomeLayout from '@/layout/homeLayout'
-import Layout from '@/layout';
-import Login from '@/pages/login';
+import { lazy } from 'react'
+import { useRoutes, Navigate } from 'react-router-dom'
 import Home from '@/pages/home';
 import Suffer from '@/pages/suffer';
 import Visit from '@/pages/visit';
 import Setting from '@/pages/setting';
 import Projects from '@/pages/projects';
 import Message from '@/pages/message';
-import Menu1 from '@/pages/menu1'
-import Menu2 from '@/pages/menu2'
-import SubMenu from '@/pages/subMenu'
+const Layout = lazy(() => import('@/layout'))
+const Login = lazy(() => import('@/pages/login'))
+const Menu1 = lazy(() => import('@/pages/menu1'))
+const Menu2 = lazy(() => import('@/pages/menu2'))
+const SubMenu = lazy(() => import('@/pages/subMenu'))
 import Config from '@/pages/config';
 import Means from '@/pages/config/pages/meas';
 import Password from '@/pages/config/pages/password';
 import Record from '@/pages/config/pages/record';
-import { Navigate } from 'react-router-dom'
-// const HomeLayout = lazy(()=>import('@/layout/homeLayout'))
-// const Login = lazy(()=>import('@/pages/login'))
-// const Menu1 = lazy(()=>import('@/pages/menu1'))
-// const Menu2 = lazy(()=>import('@/pages/menu2'))
-// const SubMenu = lazy(()=>import('@/pages/subMenu'))
 
 // https://reactrouter.com/en/v6.3.0/getting-started/concepts
 /**
@@ -30,29 +25,6 @@ import { Navigate } from 'react-router-dom'
  * hideInMenu：是否显示在菜单中
  */
 export const homeMenus = [
-  {
-    path: 'menu1', label: '菜单1', element: <Menu1 />,
-  },
-  {
-    path: 'menu2', label: '菜单2', element: <Menu2 />,
-    children: [
-      {
-        path: 'subMenu2', label: '子菜单2', element: <SubMenu />,
-        children: [
-          { path: 'subMenu21', label: '子菜单222', element: <SubMenu /> },
-          { path: 'subMenu22', label: '子菜单223', element: <SubMenu />, hideInMenu: true }
-        ]
-      },
-      {
-        path: 'subMenu3', label: '子菜单3', element: <SubMenu />, children: [
-          { path: 'subMenu31', label: '子菜单22', element: <SubMenu />, }
-        ]
-      }
-    ]
-  }
-]
-
-const menus = [
   {
     path: 'home', label: '首页', element: <Home />,
   },
@@ -71,20 +43,20 @@ export default [
     element: <Layout />,
     children: [
       {path: "", element: <Navigate to="projects" />},
-      {path: 'projects', name: '项目列表', label: '项目列表', exec: true, element: <Projects />},
-      {path: 'setting', name: '基础设置', label: '基础设置', exec: true, element: <Setting />},
-      {path: 'message', name: '消息中心', label: '消息中心', exec: true, element: <Message />},
+      {path: 'projects', name: 'projects', label: '项目列表', exec: true, element: <Projects />},
+      {path: 'setting', name: 'setting', label: '基础设置', exec: true, element: <Setting />},
+      {path: 'message', name: 'message', label: '消息中心', exec: true, element: <Message />},
       {
         path: '/researchpc/config',
         name: 'config',
         element: <Config />,
         children: [
-          {path: 'means', name: '资料设置', label: '资料设置', exec: true, element: <Means />},
-          {path: 'password', name: '修改密码', label: '修改密码', exec: true, element: <Password />},
-          {path: 'record', name: '登陆记录', label: '登陆记录', exec: true, element: <Record />},
+          {path: 'means', name: 'means', label: '资料设置', exec: true, element: <Means />},
+          {path: 'password', name: 'password', label: '修改密码', exec: true, element: <Password />},
+          {path: 'record', name: 'record', label: '登陆记录', exec: true, element: <Record />},
         ]
       },
-      ...menus,
+      ...homeMenus,
     ]
   },
   {
@@ -92,5 +64,5 @@ export default [
     name: 'login',
     element: <Login />,
   },
-  {path: "*", element: <div>404</div>},
+  { path: "*", element: <div>404</div> },
 ]

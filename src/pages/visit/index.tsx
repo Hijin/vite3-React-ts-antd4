@@ -1,7 +1,7 @@
 const Visit = () => {
   return (
     <div>
-      home
+      visit
     </div>
   )
 }
