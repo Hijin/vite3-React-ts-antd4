@@ -1,15 +1,20 @@
 import HomeLayout from '@/layout/homeLayout'
 import Layout from '@/layout';
-import Config from '@/pages/config';
 import Login from '@/pages/login';
 import Home from '@/pages/home';
 import Suffer from '@/pages/suffer';
 import Visit from '@/pages/visit';
+import Setting from '@/pages/setting';
 import Projects from '@/pages/projects';
+import Message from '@/pages/message';
 import Menu1 from '@/pages/menu1'
 import Menu2 from '@/pages/menu2'
 import SubMenu from '@/pages/subMenu'
-import { useRoutes, Navigate } from 'react-router-dom'
+import Config from '@/pages/config';
+import Means from '@/pages/config/pages/meas';
+import Password from '@/pages/config/pages/password';
+import Record from '@/pages/config/pages/record';
+import { Navigate } from 'react-router-dom'
 // const HomeLayout = lazy(()=>import('@/layout/homeLayout'))
 // const Login = lazy(()=>import('@/pages/login'))
 // const Menu1 = lazy(()=>import('@/pages/menu1'))
@@ -62,17 +67,25 @@ const menus = [
 export default [
   {
     path: '/researchpc',
+    name: '科研系统',
     element: <Layout />,
     children: [
       {path: "", element: <Navigate to="projects" />},
-      {path: 'projects', label: '项目列表', exec: true, element: <Projects />},
+      {path: 'projects', name: '项目列表', label: '项目列表', exec: true, element: <Projects />},
+      {path: 'setting', name: '基础设置', label: '基础设置', exec: true, element: <Setting />},
+      {path: 'message', name: '消息中心', label: '消息中心', exec: true, element: <Message />},
+      {
+        path: '/researchpc/config',
+        name: 'config',
+        element: <Config />,
+        children: [
+          {path: 'means', name: '资料设置', label: '资料设置', exec: true, element: <Means />},
+          {path: 'password', name: '修改密码', label: '修改密码', exec: true, element: <Password />},
+          {path: 'record', name: '登陆记录', label: '登陆记录', exec: true, element: <Record />},
+        ]
+      },
       ...menus,
     ]
-  },
-  {
-    path: '/researchpc/config',
-    name: 'config',
-    element: <Config />
   },
   {
     path: '/researchpc/login',
