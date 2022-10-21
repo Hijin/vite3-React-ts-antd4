@@ -1,5 +1,11 @@
 import HomeLayout from '@/layout/homeLayout'
-import Login from '@/pages/login'
+import Layout from '@/layout';
+import Config from '@/pages/config';
+import Login from '@/pages/login';
+import Home from '@/pages/home';
+import Suffer from '@/pages/suffer';
+import Visit from '@/pages/visit';
+import Projects from '@/pages/projects';
 import Menu1 from '@/pages/menu1'
 import Menu2 from '@/pages/menu2'
 import SubMenu from '@/pages/subMenu'
@@ -35,12 +41,33 @@ export const homeMenus = [
     ]
   }
 ]
+
+const menus = [
+  {
+    index: true, exact: true, path: 'projects', label: '项目列表', element: <Projects />,
+  },
+  {
+    path: 'home', label: '首页', element: <Home />,
+  },
+  {
+    path: 'suffer', label: '患者管理', element: <Suffer />,
+  },
+  {
+    path: 'visit', label: '随访管理', element: <Visit />,
+  },
+]
+
 const routes = [
   {
     path: '/',
-    name: 'home',
-    element: <HomeLayout />,
-    children: homeMenus
+    name: 'index',
+    element: <Layout />,
+    children: menus
+  },
+  {
+    path: '/config',
+    name: 'config',
+    element: <Config />
   },
   {
     path: '/login',
@@ -49,8 +76,4 @@ const routes = [
   },
 ]
 
-const GetRoutes = () => {
-  return useRoutes(routes)
-}
-
-export default GetRoutes
+export default routes;
