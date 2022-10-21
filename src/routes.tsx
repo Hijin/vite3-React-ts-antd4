@@ -9,7 +9,7 @@ import Projects from '@/pages/projects';
 import Menu1 from '@/pages/menu1'
 import Menu2 from '@/pages/menu2'
 import SubMenu from '@/pages/subMenu'
-import { useRoutes } from 'react-router-dom'
+import { useRoutes, Navigate } from 'react-router-dom'
 // const HomeLayout = lazy(()=>import('@/layout/homeLayout'))
 // const Login = lazy(()=>import('@/pages/login'))
 // const Menu1 = lazy(()=>import('@/pages/menu1'))
@@ -49,9 +49,6 @@ export const homeMenus = [
 
 const menus = [
   {
-    index: true, exact: true, path: 'projects', label: '项目列表', element: <Projects />,
-  },
-  {
     path: 'home', label: '首页', element: <Home />,
   },
   {
@@ -62,12 +59,15 @@ const menus = [
   },
 ]
 
-const routes = [
+export default [
   {
     path: '/',
-    name: 'index',
     element: <Layout />,
-    children: menus
+    children: [
+      {path: "", element: <Navigate to="projects" />},
+      {path: 'projects', label: '项目列表', exec: true, element: <Projects />},
+      ...menus,
+    ]
   },
   {
     path: '/config',
@@ -79,6 +79,5 @@ const routes = [
     name: 'login',
     element: <Login />,
   },
+  {path: "*", element: <div>404</div>},
 ]
-
-export default routes;
