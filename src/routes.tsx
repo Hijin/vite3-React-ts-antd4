@@ -1,10 +1,15 @@
 import { lazy } from 'react';
-import Config from '@/pages/config';
+import { Navigate } from 'react-router-dom';
 import Home from '@/pages/home';
 import Suffer from '@/pages/suffer';
 import Visit from '@/pages/visit';
+import Setting from '@/pages/setting';
 import Projects from '@/pages/projects';
-import { useRoutes, Navigate } from 'react-router-dom';
+import Message from '@/pages/message';
+import Config from '@/pages/config';
+import Means from '@/pages/config/pages/meas';
+import Password from '@/pages/config/pages/password';
+import Record from '@/pages/config/pages/record';
 const Layout = lazy(() => import('@/layout'));
 const Login = lazy(() => import('@/pages/login'));
 
@@ -34,25 +39,64 @@ export const homeMenus = [
   }
 ];
 
-const routers = [
+export default [
   {
     path: '/researchpc',
+    name: '科研系统',
     element: <Layout />,
     children: [
       { path: '', element: <Navigate to="projects" /> },
       {
         path: 'projects',
+        name: 'projects',
         label: '项目列表',
         exec: true,
         element: <Projects />
       },
+      {
+        path: 'setting',
+        name: 'setting',
+        label: '基础设置',
+        exec: true,
+        element: <Setting />
+      },
+      {
+        path: 'message',
+        name: 'message',
+        label: '消息中心',
+        exec: true,
+        element: <Message />
+      },
+      {
+        path: '/researchpc/config',
+        name: 'config',
+        element: <Config />,
+        children: [
+          {
+            path: 'means',
+            name: 'means',
+            label: '资料设置',
+            exec: true,
+            element: <Means />
+          },
+          {
+            path: 'password',
+            name: 'password',
+            label: '修改密码',
+            exec: true,
+            element: <Password />
+          },
+          {
+            path: 'record',
+            name: 'record',
+            label: '登陆记录',
+            exec: true,
+            element: <Record />
+          }
+        ]
+      },
       ...homeMenus
     ]
-  },
-  {
-    path: '/researchpc/config',
-    name: 'config',
-    element: <Config />
   },
   {
     path: '/researchpc/login',
@@ -61,7 +105,3 @@ const routers = [
   },
   { path: '*', element: <div>404</div> }
 ];
-const GetRoutes = () => {
-  return useRoutes(routers);
-};
-export default GetRoutes;
