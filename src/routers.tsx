@@ -1,9 +1,10 @@
-import HomeLayout from '@/layout/homeLayout'
-import Login from '@/pages/login'
-import Menu1 from '@/pages/menu1'
-import Menu2 from '@/pages/menu2'
-import SubMenu from '@/pages/subMenu'
+import { lazy } from 'react'
 import { useRoutes } from 'react-router-dom'
+const HomeLayout = lazy(()=>import('@/layout/homeLayout'))
+const Login = lazy(()=>import('@/pages/login'))
+const Menu1 = lazy(()=>import('@/pages/menu1'))
+const Menu2 = lazy(()=>import('@/pages/menu2'))
+const SubMenu = lazy(()=>import('@/pages/subMenu'))
 
 // https://reactrouter.com/en/v6.3.0/getting-started/concepts
 /**
