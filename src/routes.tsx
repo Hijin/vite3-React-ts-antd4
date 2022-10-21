@@ -1,15 +1,12 @@
-import { lazy } from 'react'
+import { lazy } from 'react';
 import Config from '@/pages/config';
 import Home from '@/pages/home';
 import Suffer from '@/pages/suffer';
 import Visit from '@/pages/visit';
 import Projects from '@/pages/projects';
-import { useRoutes, Navigate } from 'react-router-dom'
-const Layout = lazy(() => import('@/layout'))
-const Login = lazy(() => import('@/pages/login'))
-const Menu1 = lazy(() => import('@/pages/menu1'))
-const Menu2 = lazy(() => import('@/pages/menu2'))
-const SubMenu = lazy(() => import('@/pages/subMenu'))
+import { useRoutes, Navigate } from 'react-router-dom';
+const Layout = lazy(() => import('@/layout'));
+const Login = lazy(() => import('@/pages/login'));
 
 // https://reactrouter.com/en/v6.3.0/getting-started/concepts
 /**
@@ -21,24 +18,35 @@ const SubMenu = lazy(() => import('@/pages/subMenu'))
  */
 export const homeMenus = [
   {
-    path: 'home', label: '首页', element: <Home />,
+    path: 'home',
+    label: '首页',
+    element: <Home />
   },
   {
-    path: 'suffer', label: '患者管理', element: <Suffer />,
+    path: 'suffer',
+    label: '患者管理',
+    element: <Suffer />
   },
   {
-    path: 'visit', label: '随访管理', element: <Visit />,
-  },
-]
+    path: 'visit',
+    label: '随访管理',
+    element: <Visit />
+  }
+];
 
 const routers = [
   {
     path: '/researchpc',
     element: <Layout />,
     children: [
-      { path: "", element: <Navigate to="projects" /> },
-      { path: 'projects', label: '项目列表', exec: true, element: <Projects /> },
-      ...homeMenus,
+      { path: '', element: <Navigate to="projects" /> },
+      {
+        path: 'projects',
+        label: '项目列表',
+        exec: true,
+        element: <Projects />
+      },
+      ...homeMenus
     ]
   },
   {
@@ -49,11 +57,11 @@ const routers = [
   {
     path: '/researchpc/login',
     name: 'login',
-    element: <Login />,
+    element: <Login />
   },
-  { path: "*", element: <div>404</div> },
-]
+  { path: '*', element: <div>404</div> }
+];
 const GetRoutes = () => {
-  return useRoutes(routers)
-}
-export default GetRoutes
+  return useRoutes(routers);
+};
+export default GetRoutes;

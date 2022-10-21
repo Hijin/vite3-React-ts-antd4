@@ -1,9 +1,5 @@
 const Config = () => {
-  return (
-    <div>
-      config
-    </div>
-  )
-}
+  return <div>config</div>;
+};
 
-export default Config
+export default Config;
