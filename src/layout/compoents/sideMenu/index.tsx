@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react"
 import { Menu } from "antd"
 import { useNavigate } from "react-router-dom"
-import { homeMenus } from '@/routers'
+import { homeMenus } from '@/routes'
 
 const SideMenu = () => {
   const navigate = useNavigate()
