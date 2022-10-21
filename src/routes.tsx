@@ -61,7 +61,7 @@ const menus = [
 
 export default [
   {
-    path: '/',
+    path: '/researchpc',
     element: <Layout />,
     children: [
       {path: "", element: <Navigate to="projects" />},
@@ -70,12 +70,12 @@ export default [
     ]
   },
   {
-    path: '/config',
+    path: '/researchpc/config',
     name: 'config',
     element: <Config />
   },
   {
-    path: '/login',
+    path: '/researchpc/login',
     name: 'login',
     element: <Login />,
   },
