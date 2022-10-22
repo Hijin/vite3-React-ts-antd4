@@ -65,7 +65,11 @@ const Header = () => {
     <div className="home-layout-header flex-b">
       <div className="flex-h-c flex-1">
         <div className="flex-h-c">
-          <Image src={LogoImg} className="home-layout-header__logo" />
+          <Image
+            src={LogoImg}
+            preview={false}
+            className="home-layout-header__logo"
+          />
           <div className="col-w ft-18 ft-b">项目名称</div>
         </div>
         <div className="flex-1 flex-h-c h-full ml-20">
@@ -79,6 +83,7 @@ const Header = () => {
             >
               <Image
                 src={navCurKey === v.key ? v.selIcon : v.icon}
+                preview={false}
                 className="home-layout-header__nav-item__icon"
               />
               <div
@@ -101,6 +106,7 @@ const Header = () => {
         <div>
           <Image
             src={AvatarDefaultImg}
+            preview={false}
             className="home-layout-header__avatar"
           />
           <div className="home-layout-header__user-name col-w ft-14 ml-10">
