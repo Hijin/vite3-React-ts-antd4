@@ -1,8 +1,5 @@
 const Record = () => {
-
-  return (
-    <div>record</div>
-  )
-}
+  return <div>record</div>;
+};
 
 export default Record;

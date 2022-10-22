@@ -1,4 +1,4 @@
-import { Outlet } from 'react-router-dom'
+import { Outlet } from 'react-router-dom';
 
 const Config = () => {
   return (
@@ -8,7 +8,7 @@ const Config = () => {
         <Outlet />
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default Config
+export default Config;

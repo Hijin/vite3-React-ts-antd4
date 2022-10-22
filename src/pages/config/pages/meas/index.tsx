@@ -1,8 +1,5 @@
 const Means = () => {
-
-  return (
-    <div>means</div>
-  )
-}
+  return <div>means</div>;
+};
 
 export default Means;

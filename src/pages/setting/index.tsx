@@ -1,8 +1,5 @@
 const Setting = () => {
-
-  return (
-    <div>set</div>
-  )
-}
+  return <div>set</div>;
+};
 
 export default Setting;

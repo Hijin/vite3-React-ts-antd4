@@ -1,9 +1,5 @@
 const Visit = () => {
-  return (
-    <div>
-      visit
-    </div>
-  )
-}
+  return <div>visit</div>;
+};
 
-export default Visit
+export default Visit;

@@ -1,8 +1,5 @@
 const Password = () => {
-
-  return (
-    <div>password</div>
-  )
-}
+  return <div>password</div>;
+};
 
 export default Password;
