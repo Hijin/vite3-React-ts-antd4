@@ -24,7 +24,7 @@ import Record from '@/pages/config/pages/record';
  * element：路由组件
  * hideInMenu：是否显示在菜单中
  */
-export const homeMenus = [
+export const navList = [
   {
     path: 'home', label: '首页', element: <Home />,
   },
@@ -36,6 +36,12 @@ export const homeMenus = [
   },
 ]
 
+export const homeMenus = [
+  {path: 'projects', name: 'projects', label: '项目列表', exec: true, element: <Projects />},
+  {path: 'setting', name: 'setting', label: '基础设置', exec: true, element: <Setting />},
+  {path: 'message', name: 'message', label: '消息中心', exec: true, element: <Message />},
+]
+
 export default [
   {
     path: '/researchpc',
@@ -43,9 +49,7 @@ export default [
     element: <Layout />,
     children: [
       {path: "", element: <Navigate to="projects" />},
-      {path: 'projects', name: 'projects', label: '项目列表', exec: true, element: <Projects />},
-      {path: 'setting', name: 'setting', label: '基础设置', exec: true, element: <Setting />},
-      {path: 'message', name: 'message', label: '消息中心', exec: true, element: <Message />},
+      ...homeMenus,
       {
         path: '/researchpc/config',
         name: 'config',
@@ -56,7 +60,7 @@ export default [
           {path: 'record', name: 'record', label: '登陆记录', exec: true, element: <Record />},
         ]
       },
-      ...homeMenus,
+      ...navList
     ]
   },
   {
