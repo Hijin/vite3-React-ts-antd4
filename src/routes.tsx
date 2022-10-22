@@ -21,7 +21,7 @@ const Login = lazy(() => import('@/pages/login'));
  * element：路由组件
  * hideInMenu：是否显示在菜单中
  */
-export const homeMenus = [
+export const navList = [
   {
     path: 'home',
     label: '首页',
@@ -36,6 +36,30 @@ export const homeMenus = [
     path: 'visit',
     label: '随访管理',
     element: <Visit />
+  }
+];
+
+export const homeMenus = [
+  {
+    path: 'projects',
+    name: 'projects',
+    label: '项目列表',
+    exec: true,
+    element: <Projects />
+  },
+  {
+    path: 'setting',
+    name: 'setting',
+    label: '基础设置',
+    exec: true,
+    element: <Setting />
+  },
+  {
+    path: 'message',
+    name: 'message',
+    label: '消息中心',
+    exec: true,
+    element: <Message />
   }
 ];
 
