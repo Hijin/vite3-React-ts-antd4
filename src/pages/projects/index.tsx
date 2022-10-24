@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { Input, Button, Image, Tabs, Pagination } from 'antd';
 import { Add1Img } from '@/assets/imgs';
 import { Loading } from '@/components';
+import ProjectCard from './components/projectCard';
 import './index.less';
 const { Search } = Input;
 
@@ -12,6 +13,7 @@ const TabItems = [
   { label: '已逾期', key: 'oueDate' }
 ];
 const Project = () => {
+  const [list, setList] = useState<any[]>([]);
   const [paginationInfo, setPaginationInfo] = useState({
     pageNum: 1,
     pageSize: 9,
@@ -24,7 +26,8 @@ const Project = () => {
     getLists();
   }, []);
   const onSearch = (searchVal: string) => {
-    document.write(searchVal);
+    // eslint-disable-next-line
+    console.log(searchVal)
   };
   const handleTabClick = (key: string) => {
     paginationInfo.pageNum = 1;
@@ -46,7 +49,51 @@ const Project = () => {
     setLoading(true);
     setTimeout(() => {
       setLoading(false);
-    }, 2000);
+      const arr = [];
+      for (let i = 0; i < 9; i++) {
+        arr.push({
+          id: i,
+          name: '项目名称',
+          state: i % 3,
+          timeStart: '2022.03.02',
+          timeEnd: '2023.03.02',
+          desc:
+            i % 2 === 0
+              ? '项目描述是这样的项目描述是这样的项目描述是这样的项目描述是这样的项目描述是这样的项目描述是这样的项目描述是这样的项目描述是这样的项目描述是这样的项目描述是这样的项目描述是这样的项目描述是这样的项目描述是这样的项目描述是这样的项目描述是这样的项目描述是这样的'
+              : '但是接口豆干',
+          count: 20,
+          people: [
+            {
+              name: '张三啥孤岛惊魂1',
+              icon: 'https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png'
+            },
+            { name: '张三啥孤岛惊魂2', icon: '' },
+            { name: '张三啥孤岛惊魂3', icon: '' },
+            { name: '张三啥孤岛惊魂4', icon: '' },
+            { name: '张三啥孤岛惊魂5', icon: '' },
+            { name: '张三啥孤岛惊魂6', icon: '' }
+          ],
+          unit:
+            i % 2 === 0
+              ? [
+                  {
+                    name: '上海市第一人民医院',
+                    department: ' 呼吸与危重医学科'
+                  },
+                  {
+                    name: '浙江大学医学院附属二院',
+                    department: ' 呼吸与危重医学科'
+                  }
+                ]
+              : [],
+          header: [
+            { name: '张三', title: '教授' },
+            { name: '李四', title: '教授' }
+          ]
+        });
+      }
+      setList(arr);
+    }, 1000);
   };
   return (
     <div className="project br-10 bg-w h-full flex-col">
@@ -73,8 +120,11 @@ const Project = () => {
         onTabClick={handleTabClick}
       />
       <div className="flex-1 flex-col">
-        <div className="flex-1 ov-auto pos-rlt">
+        <div className="flex-1 ov-auto pos-rlt flex-wp">
           <Loading loading={loading} />
+          {list.map((v): any => (
+            <ProjectCard info={v} key={v.id} />
+          ))}
         </div>
         <div className="mt-20 flex-v-e">
           <Pagination

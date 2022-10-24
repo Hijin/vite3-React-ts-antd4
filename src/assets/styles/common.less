@@ -26,12 +26,37 @@ body {
   cursor: pointer;
 }
 
+.line(@line) {
+  white-space: pre-wrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: @line;
+  -webkit-box-orient: vertical;
+}
+
+.line-1 {
+  .line(1)
+}
+
+.line-2 {
+  .line(2)
+}
+
+.line-3 {
+  .line(3)
+}
+
 .w-full {
   width: 100%;
 }
 
 .h-full {
   height: 100%;
+}
+
+.lh-24 {
+  line-height: 24px;
 }
 
 /* flex */
@@ -70,6 +95,7 @@ body {
 }
 
 .flex-wp {
+  display: flex;
   flex-wrap: wrap;
 }
 
@@ -138,6 +164,9 @@ body {
 .mt-25 {
   margin-top: 25px;
 }
+.mt-30 {
+  margin-top: 30px;
+}
 
 .mh-10 {
   margin-left: 10px;
@@ -189,6 +218,11 @@ body {
 }
 
 /* font */
+.ft-10 {
+  font-size: 12px;
+  transform: scale(0.83);
+}
+
 .ft-12 {
   font-size: 12px;
 }
