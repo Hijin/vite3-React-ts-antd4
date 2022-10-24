@@ -21,21 +21,21 @@ const HeaderNavItems = [
     label: '首页',
     icon: LogoImg,
     selIcon: HeaderHomeSelImg,
-    path: ''
+    path: 'home'
   },
   {
     key: 'patient',
     label: '患者管理',
     icon: LogoImg,
     selIcon: HeaderPatientSelImg,
-    path: ''
+    path: 'suffer'
   },
   {
     key: 'visit',
     label: '随访管理',
     icon: LogoImg,
     selIcon: HeaderVisitSelImg,
-    path: ''
+    path: 'visit'
   }
 ];
 
