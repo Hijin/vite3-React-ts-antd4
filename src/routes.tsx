@@ -6,7 +6,9 @@ import Visit from '@/pages/visit';
 import Setting from '@/pages/setting';
 const Projects = lazy(() => import('@/pages/projects'));
 const ProjectsList = lazy(() => import('@/pages/projects/projectList'));
-const ProjectCreate = lazy(() => import('@/pages/projects/projectCreate'));
+// const ProjectCreate = lazy(() => import('@/pages/projects/projectCreate'));
+import ProjectCreate from '@/pages/projects/projectCreate';
+import ProjectCreateFirstStep from '@/pages/projects/projectCreate/firstStep';
 import Message from '@/pages/message';
 import Config from '@/pages/config';
 import Means from '@/pages/config/pages/meas';
@@ -49,8 +51,13 @@ export const homeMenus = [
     exec: true,
     element: <Projects />,
     children: [
-      { path: '', name: 'projectsList',hideInMenu:true, element: <ProjectsList /> },
-      { path: 'create', name: 'projectsCreate',hideInMenu:true, element: <ProjectCreate /> }
+      { path: '', name: 'projectsList', hideInMenu: true, element: <ProjectsList /> },
+      {
+        path: 'create', name: 'projectsCreate', hideInMenu: true, element: <ProjectCreate />,
+        children: [
+          { path: '', name: 'projectsCreateFirstStep', hideInMenu: true, element: <ProjectCreateFirstStep />, }
+        ]
+      }
     ],
   },
   {

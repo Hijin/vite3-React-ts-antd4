@@ -1,6 +1,8 @@
 import { Outlet } from "react-router-dom"
 const Project = () => {
-  return <Outlet />
+  return <>
+  <Outlet />
+  </>
 }
 
 export default Project
