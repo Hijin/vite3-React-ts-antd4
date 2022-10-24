@@ -1,7 +1,5 @@
 .project-card {
   padding: 5px;
-  width: 33.33%;
-  min-width: 300px;
   &__body {
     padding: 14px 16px 0 24px;
   }
@@ -69,5 +67,15 @@
 
   .mt-40 {
     margin-top: 40px;
+  }
+}
+@media screen and (min-width: 1100px) {
+  .project-card {
+    width: 33.33%;
+  }
+}
+@media screen and (max-width: 1100px) {
+  .project-card {
+    width: 50%;
   }
 }
