@@ -23,7 +23,12 @@ const SideMenu = () => {
           key: v.path
         };
         if (v.children?.length) {
-          newMenus.children = initMenus(v.children);
+          const newChildren = initMenus(v.children)
+          if (newChildren.length) {
+            newMenus.children = initMenus(v.children);
+          } else {
+            delete newMenus.children;
+          }
         }
         return newMenus;
       });

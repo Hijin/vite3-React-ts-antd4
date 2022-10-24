@@ -4,7 +4,9 @@ import Home from '@/pages/home';
 import Suffer from '@/pages/suffer';
 import Visit from '@/pages/visit';
 import Setting from '@/pages/setting';
-import Projects from '@/pages/projects';
+const Projects = lazy(() => import('@/pages/projects'));
+const ProjectsList = lazy(() => import('@/pages/projects/projectList'));
+const ProjectCreate = lazy(() => import('@/pages/projects/projectCreate'));
 import Message from '@/pages/message';
 import Config from '@/pages/config';
 import Means from '@/pages/config/pages/meas';
@@ -45,7 +47,11 @@ export const homeMenus = [
     name: 'projects',
     label: '项目列表',
     exec: true,
-    element: <Projects />
+    element: <Projects />,
+    children: [
+      { path: '', name: 'projectsList',hideInMenu:true, element: <ProjectsList /> },
+      { path: 'create', name: 'projectsCreate',hideInMenu:true, element: <ProjectCreate /> }
+    ],
   },
   {
     path: 'setting',
@@ -69,7 +75,7 @@ export default [
     name: '科研系统',
     element: <Layout />,
     children: [
-      {path: "", element: <Navigate to="projects" />},
+      { path: "", element: <Navigate to="projects" /> },
       ...homeMenus,
       {
         path: '/researchpc/config',
