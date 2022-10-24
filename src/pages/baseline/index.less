@@ -1,0 +1,98 @@
+.bl-um-wrapper {
+
+  .bl-um-header {
+    height: 40px;
+    font-size: 16px;
+    font-family: PingFangSC-Medium, PingFang SC;
+    font-weight: 400;
+    transform: translateY(-5px);
+
+    .bl-um-wrapper-sub {
+      color: #999999;
+    }
+
+    .bl-um-wrapper-sup {
+      color: #FB6260;
+    }
+  }
+
+  .bl-um-mode-wrap {
+    min-height: 180px;
+    background: #FFFFFF;
+    border-radius: 10px;
+    border: 1px solid #FFF;
+
+    &:hover {
+      border: 1px solid #979797;
+    }
+
+    .bl-um-mode-head {
+      font-size: 16px;
+      font-family: PingFangSC-Medium, PingFang SC;
+      font-weight: 500;
+      color: rgba(0,0,0,0.85);
+      line-height: 24px;
+      margin: 10px 0 10px 20px;
+    }
+
+    .bl-um-mode-contain {
+      display: flex;
+      flex-wrap: wrap;
+      margin-left: 20px;
+      .bl-um-mode-content {
+        cursor: pointer;
+        text-align: center;
+        line-height: 40px;
+        width: 130px;
+        height: 40px;
+        background: #FFFFFF;
+        border-radius: 20px;
+        border: 1px solid #C4C6CF;
+        margin: 10px;
+        &.bl-um-mode-content-select {
+          background: #F7B500!important;
+          border: none;
+          border-radius: 20px;
+          color: #FFFFFF;
+          &:hover {
+            background: #F7B500!important;
+          }
+        }
+        &.bl-um-mode-content-finish {
+          background: #128078;
+          border-radius: 20px;
+          border: none;
+          color: #FFFFFF;
+          &:hover {
+            background: #128078;
+          }
+        }
+      }
+      .bl-um-mode-content:hover {
+        background: #F6F6F6;
+      }
+    }
+  }
+
+  .bl-um-contain {
+    margin-top: 12px;
+    padding: 20px 30px;
+    min-height: 500px;
+    background: #FFFFFF;
+    border-radius: 10px 10px 0 0;
+
+    .bl-um-contain-head {
+      border-bottom: 1px solid #E9E9E9;
+      font-size: 16px;
+      font-family: PingFangSC-Medium, PingFang SC;
+      font-weight: 500;
+      color: rgba(0,0,0,0.85);
+      line-height: 22px;
+      height: 42px;
+    }
+
+    .bl-um-contain-content {
+
+    }
+  }
+}

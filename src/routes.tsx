@@ -2,6 +2,7 @@ import { lazy } from 'react';
 import { Navigate } from 'react-router-dom';
 import Home from '@/pages/home';
 import Suffer from '@/pages/suffer';
+import Baseline from '@/pages/baseline';
 import Visit from '@/pages/visit';
 import Setting from '@/pages/setting';
 const Projects = lazy(() => import('@/pages/projects'));
@@ -34,7 +35,12 @@ export const navList = [
   {
     path: 'suffer',
     label: '患者管理',
-    element: <Suffer />
+    element: <Suffer />,
+  },
+  {
+    path: 'suffer/baseline',
+    label: '患者基线',
+    element: <Baseline />
   },
   {
     path: 'visit',
