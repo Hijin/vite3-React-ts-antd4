@@ -119,8 +119,8 @@ const Project = () => {
         activeKey={curTabKey}
         onTabClick={handleTabClick}
       />
-      <div className="flex-1 flex-col">
-        <div className="flex-1 ov-auto pos-rlt flex-wp">
+      <div className="flex-1 flex-col over-hide">
+        <div className="flex-1 over-auto pos-rlt flex-wp">
           <Loading loading={loading} />
           {list.map((v): any => (
             <ProjectCard info={v} key={v.id} />

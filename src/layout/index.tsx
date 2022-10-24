@@ -6,9 +6,9 @@ const HomeLayout = () => {
   return (
     <div className="home-layout flex-col">
       <Header></Header>
-      <div className="flex-1 flex pt-20">
+      <div className="flex-1 flex pt-20 over-hide">
         <SideMenu />
-        <div className="home-layout__content flex-1">
+        <div className="home-layout__content over-auto flex-1">
           <Outlet />
         </div>
       </div>
