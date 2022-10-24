@@ -69,28 +69,8 @@ export default [
     name: '科研系统',
     element: <Layout />,
     children: [
-      { path: '', element: <Navigate to="projects" /> },
-      {
-        path: 'projects',
-        name: 'projects',
-        label: '项目列表',
-        exec: true,
-        element: <Projects />
-      },
-      {
-        path: 'setting',
-        name: 'setting',
-        label: '基础设置',
-        exec: true,
-        element: <Setting />
-      },
-      {
-        path: 'message',
-        name: 'message',
-        label: '消息中心',
-        exec: true,
-        element: <Message />
-      },
+      {path: "", element: <Navigate to="projects" />},
+      ...homeMenus,
       {
         path: '/researchpc/config',
         name: 'config',
@@ -119,7 +99,7 @@ export default [
           }
         ]
       },
-      ...homeMenus
+      ...navList
     ]
   },
   {

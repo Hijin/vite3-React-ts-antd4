@@ -16,6 +16,7 @@
     "@ant-design/pro-components": "^2.3.20",
     "antd": "^4.23.6",
     "axios": "^1.1.3",
+    "classnames": "^2.3.2",
     "mobx": "^6.6.2",
     "mobx-react": "^7.5.3",
     "react": "^18.2.0",
