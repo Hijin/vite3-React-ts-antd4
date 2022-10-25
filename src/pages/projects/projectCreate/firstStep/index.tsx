@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { Form, Input, DatePicker, Button, Table, message } from 'antd'
 import moment from 'moment';
 import { SelectNet } from '@/components'
@@ -7,6 +8,7 @@ import './index.less'
 
 const { RangePicker } = DatePicker;
 const FirstStep = () => {
+  const navigate = useNavigate()
   const [departments, setDepartments] = useState([
     { key: new Date().getTime(), main: 1, count: 0 }
   ])
@@ -43,6 +45,7 @@ const FirstStep = () => {
   const handleCommit = async () => {
     await form.validateFields()
     if (!availableDepartments()) return
+    navigate('second')
   }
   const availableDepartments = () => {
     if (departments.find((v: any) => !v.name)) {
