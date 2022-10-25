@@ -12,8 +12,18 @@
   .ant-menu-item-selected {
     color: @primary-color;
     background: rgba(#09ADA1, 0.1) !important;
+
+    &::after {
+      transform: scale(1);
+      opacity: 1;
+    }
   }
 
+  .ant-menu-submenu-arrow {
+    color: @primary-color;
+  }
+
+  .ant-menu-submenu,
   .ant-menu-item {
     color: @primary-color;
 
