@@ -11,8 +11,7 @@ const Login = ({ userStore }: any) => {
 
   return (
     <div>
-      fdsajdf
-      <div>1112djahfsdha</div>
+      傲世轻物
       <div>{token}</div>
     </div>
   );

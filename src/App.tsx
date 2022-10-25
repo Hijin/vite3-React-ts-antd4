@@ -1,8 +1,8 @@
 import { Suspense, useContext } from 'react';
 import zhCN from 'antd/es/locale/zh_CN';
-import { ConfigProvider } from 'antd';
 import { Provider } from 'mobx-react';
 import { BrowserRouter as Router, useRoutes } from 'react-router-dom';
+import { ConfigProvider } from 'antd';
 import routes from '@/routes';
 import store from '@/store';
 import 'antd/dist/antd.less';
