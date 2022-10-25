@@ -1,80 +1,70 @@
 import { useEffect, useState } from 'react';
-import { Form, Input, DatePicker, Select, Button, Table } from 'antd'
+import { Form, Input, DatePicker, Button, Table, message } from 'antd'
 import moment from 'moment';
+import { SelectNet } from '@/components'
 import TableColumns from './tableColumns'
 import './index.less'
 
 const { RangePicker } = DatePicker;
-const { Option } = Select;
 const FirstStep = () => {
-  const [PIOptions, setPIOptions] = useState<any[]>([])
   const [departments, setDepartments] = useState([
-    { key: new Date().getTime() }
+    { key: new Date().getTime(), main: 1, count: 0 }
   ])
-  const [optionsLoading, setOptionsLoading] = useState({
-    PIOptionsLoading: false,
-    memberOptionsLoading: false,
-    typeOptionsLoading: false,
-    contrastLoading: false,
-  })
+  const [showDepartDelete, setShowDepartDelete] = useState(false)
   const [form] = Form.useForm()
-
   useEffect(() => {
-    getOptions('PIOptionsLoading')
-  }, [])
-  const getOptions = (loadingProp: string) => {
-    setOptionsLoading({
-      ...optionsLoading,
-      [loadingProp]: true
-    })
-    setTimeout(() => {
-      setPIOptions([
-        { key: 'PI1', label: 'PI1' },
-        { key: 'PI2', label: 'PI2' },
-        { key: 'PI3', label: 'PI3' },
-        { key: 'PI4', label: 'PI4' },
-      ])
-      setOptionsLoading({
-        ...optionsLoading,
-        [loadingProp]: false
-      })
-    }, 5000)
-  }
+    setShowDepartDelete(departments.length > 1)
+    console.log(departments.length);
+
+  }, [departments])
   const handleDepartmentsChange = () => {
-    form.setFieldValue('depart',departments)
+    form.setFieldValue('depart', departments)
   }
   const handleDepartmentsAdd = () => {
     setDepartments([
       ...departments,
-      { key: new Date().getTime() }
+      { key: new Date().getTime(), main: 1, count: 0 }
     ])
+  }
+  const handleDepartmentsDelete = (record: any, index: number) => {
+    departments.splice(index, 1)
+    setDepartments([...departments])
   }
   const cols = TableColumns({
     onChange: handleDepartmentsChange,
-    onAdd: handleDepartmentsAdd
+    onAdd: handleDepartmentsAdd,
+    onDelete: handleDepartmentsDelete,
+    showDelete: showDepartDelete
   })
 
   const disabledDate = (current: any) => {
     return current && current < moment().endOf('day');
   };
-
-  const handleContrastChange = (value: string) => {
-    console.log(`selected ${value}`);
-  };
-  const handleCommit = () => {
-    form.validateFields().then((vals) => {
-      console.log(vals)
-    }).catch((err) => {
-      console.log("err==>", err)
-    })
-    console.log("departments==>", departments)
+  const handleCommit = async () => {
+    await form.validateFields()
+    if (!availableDepartments()) return
+  }
+  const availableDepartments = () => {
+    if (departments.find((v: any) => !v.name)) {
+      message.warning('科研中心名称不能为空，请核对~')
+      return false
+    }
+    if (departments.find((v: any) => !v.depart)) {
+      message.warning('科研中心科室不能为空，请核对~')
+      return false
+    }
+    if (departments.find((v: any) => v.count < 1)) {
+      message.warning('科研中心目标组人数不能为空，请核对~')
+      return false
+    }
+    return true
   }
 
   return <>
-    <div className="pc-first bg-w br-10 mt-20">
+    <div className="pc-first bg-w br-10 mt-20 flex-1 flex-col over-auto">
       <Form
         form={form}
-        className='flex-wp'
+        className='flex-wp flex-1 over-auto'
         labelCol={{ flex: '90px' }}
         labelAlign="left"
         labelWrap
@@ -94,22 +84,19 @@ const FirstStep = () => {
           <Input placeholder='请输入' />
         </Form.Item>
         <Form.Item label="项目PI:" name="PI" rules={[{ required: true, message: '请选择项目PI' }]}>
-          <Select placeholder='请选择' mode="multiple" loading={optionsLoading.PIOptionsLoading}>
-            {PIOptions.map((v: any) => <Option value={v.key} key={v.key}>{v.label}</Option>)}
-          </Select>
+          <SelectNet mode="multiple" />
         </Form.Item>
         <Form.Item label="项目成员:" name="member" rules={[{ required: true, message: '请选择项目成员' }]}>
-          <Select placeholder='请选择' mode="multiple" />
+          <SelectNet mode="multiple" />
         </Form.Item>
         <Form.Item label="研究类型:" name="type" >
-          <Select placeholder='请选择' />
+          <SelectNet placeholder='请选择' />
         </Form.Item>
         <Form.Item label="对照组:" name="contrast">
-          <Select placeholder='请输入' mode="tags" onChange={handleContrastChange}>
-          </Select>
+          <SelectNet mode="tags" />
         </Form.Item>
         <Form.Item label="科研中心:" name='depart' className='pc-first__form-item-table' rules={[{ required: true, message: '请添加科研中心' }]}>
-          <Table dataSource={departments} columns={cols} pagination={false} />
+          <Table dataSource={departments} columns={cols} pagination={false}/>
         </Form.Item>
       </Form>
     </div>

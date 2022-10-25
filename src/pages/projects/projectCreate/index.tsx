@@ -4,7 +4,7 @@ import { useNavigate, Outlet } from 'react-router-dom';
 import './index.less'
 const projectCreate = () => {
   const navigate = useNavigate()
-  return <div className="project-create">
+  return <div className="project-create flex-col over-hide h-full">
     <Breadcrumb>
       <Breadcrumb.Item>
         <a onClick={() => { navigate(-1) }}>项目列表</a>
