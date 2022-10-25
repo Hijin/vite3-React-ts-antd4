@@ -1,20 +1,20 @@
 import { Suspense, useContext } from 'react';
+import zhCN from 'antd/es/locale/zh_CN';
 import { Provider } from 'mobx-react';
 import { BrowserRouter as Router, useRoutes } from 'react-router-dom';
 import { ConfigProvider } from 'antd';
 import routes from '@/routes';
 import store from '@/store';
-import zhCN from 'antd/es/locale/zh_CN';
-import 'moment/locale/zh-cn';
 import 'antd/dist/antd.less';
 import '@/assets/styles/common.less';
 import '@/assets/styles/overwrite.less';
+import 'moment/dist/locale/zh-cn';
 
 const GetRoutes = () => useRoutes(routes);
 
 const App = () => {
   return (
-    <ConfigProvider locale={zhCN} >
+    <ConfigProvider locale={zhCN}>
       <Provider {...useContext(store)}>
         <Router>
           <Suspense>

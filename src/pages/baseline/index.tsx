@@ -1,7 +1,8 @@
 import { useSearchParams } from 'react-router-dom';
-import { useState } from 'react';
+import { useState, useMemo } from 'react';
 import cs from 'classnames';
 import { USE_MODES, UMInfo } from '@/utils/constants';
+import comps from './components/common';
 import './index.less';
 
 
@@ -17,6 +18,14 @@ const Baseline = () => {
   const isView = parseInt(querystr.get('isv') || '');
   // 基线名称
   const baseName = querystr.get('tl');
+
+  const Comp: any = useMemo(() => {
+    return comps[uminfo.id];
+  }, [uminfo])
+
+  const onFinish = (values: any) => {
+    console.log('finish', values);
+  }
 
   return (
     <section className='bl-um-wrapper'>
@@ -47,7 +56,9 @@ const Baseline = () => {
       </section>
       <section className='bl-um-contain'>
         <header className='bl-um-contain-head'>{uminfo?.name}</header>
-        <section className='bl-um-contain-content'></section>
+        <section className='bl-um-contain-content'>
+          <Comp key={`comp_key_${uminfo.id}`} onFinish={onFinish} />
+        </section>
       </section>
     </section>
   )
