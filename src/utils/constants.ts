@@ -3,7 +3,7 @@ export type UMInfo = {
   name: string;
   isFinish?: boolean;
 }
-
+// 检查项
 export const USE_MODES: UMInfo[]  = [
   {
     id: 'entryInfo',

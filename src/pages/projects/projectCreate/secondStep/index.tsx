@@ -1,9 +1,11 @@
 
 import { useEffect, useState, useRef } from 'react'
-import { Table, Button, Popconfirm } from 'antd'
+import { useNavigate } from 'react-router-dom';
+import { Table, Button, Popconfirm, message } from 'antd'
 import './index.less'
 
 const SecondStep = () => {
+  const navigate = useNavigate()
   const [standards, setStandards] = useState<any[]>([])
   const [loading, setLoading] = useState(false)
   const selectedStandards = useRef([])
@@ -36,6 +38,10 @@ const SecondStep = () => {
   }
   const handleCommit = () => {
     console.log(selectedStandards.current);
+    if (!selectedStandards.current.length) {
+      return message.warning('请选择入排标准~')
+    }
+    navigate('/researchpc/projects/create/third')
   }
   const TableColumns: any = [
     { title: '序号', dataIndex: 'index', key: 'index', render: (text: string, record: any, index: number) => <span>{index + 1}</span> },
@@ -50,7 +56,7 @@ const SecondStep = () => {
     },
   ]
   return <>
-    <div className="pc-second br-10 bg-w mt-20 flex-1 flex-col over-hide">
+    <div className="pc-second br-10 bg-w mt-30 flex-1 flex-col over-hide">
       <div className="pc-second__title ft-16 ft-b flex-h-c">入选标准设置</div>
       <Table
         className='mt-25 flex-1 over-auto'

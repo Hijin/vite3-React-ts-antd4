@@ -1,0 +1,36 @@
+.pc-third {
+  &__card {
+    padding: 30px;
+
+    &__mode {
+      width: 130px;
+      height: 40px;
+      line-height: 40px;
+      border-radius: 20px;
+      border: 1px solid #C4C6CF;
+      letter-spacing: 1px;
+      text-align: center;
+      margin: 20px 27px 0 0;
+      color: #333;
+      &:hover {
+        color: @primary-color;
+      }
+
+      &--active {
+        border-color: @primary-color;
+        color: @primary-color;
+        background-color: rgba(@primary-color, 0.1);
+        ;
+      }
+    }
+  }
+
+  .mr-40 {
+    margin-right: 40px;
+  }
+
+  .mv-5 {
+    margin-top: 5px;
+    margin-bottom: 5px;
+  }
+}
