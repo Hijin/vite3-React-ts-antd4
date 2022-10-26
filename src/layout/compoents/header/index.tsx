@@ -2,39 +2,34 @@ import { useState } from 'react';
 import { Image, Dropdown, Menu } from 'antd';
 import { useNavigate, useLocation } from 'react-router-dom';
 import cs from 'classnames';
-import {
-  LogoImg,
-  AvatarDefaultImg,
-  HeaderHomeSelImg,
-  HeaderPatientSelImg,
-  HeaderVisitSelImg
-} from '@/assets/imgs';
+import imgModule from '@/assets/imgs';
 import './index.less';
 
 const DropdownMenuItems = [
   { key: 'password', label: '设置密码', path: '/researchpc/login' },
   { key: 'loginOut', label: '退出登录', path: '/researchpc/setting' }
 ];
+
 const HeaderNavItems = [
   {
     key: 'home',
     label: '首页',
-    icon: LogoImg,
-    selIcon: HeaderHomeSelImg,
+    icon: imgModule.header_home,
+    selIcon: imgModule.header_home_sel,
     path: 'home'
   },
   {
     key: 'patient',
     label: '患者管理',
-    icon: LogoImg,
-    selIcon: HeaderPatientSelImg,
+    icon: imgModule.header_patient,
+    selIcon: imgModule.header_patient_sel,
     path: 'suffer'
   },
   {
     key: 'visit',
     label: '随访管理',
-    icon: LogoImg,
-    selIcon: HeaderVisitSelImg,
+    icon: imgModule.header_visit,
+    selIcon: imgModule.header_visit_sel,
     path: 'visit'
   }
 ];
@@ -66,7 +61,7 @@ const Header = () => {
       <div className="flex-h-c flex-1">
         <div className="flex-h-c">
           <Image
-            src={LogoImg}
+            src={imgModule.logo}
             preview={false}
             className="home-layout-header__logo"
           />
@@ -105,7 +100,7 @@ const Header = () => {
       >
         <div>
           <Image
-            src={AvatarDefaultImg}
+            src={imgModule.avatar_default}
             preview={false}
             className="home-layout-header__avatar"
           />
