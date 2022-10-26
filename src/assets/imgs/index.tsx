@@ -16,7 +16,7 @@ const files = {
 const modules = Object.keys(files).reduce(
   (modules: { [key: string]: any }, path: string) => {
     const moduleName = path.replace(/\.\/|\.png|\.jpg/g, '');
-    modules[moduleName] = files[path]?.default
+    modules[moduleName] = (files[path] as any)?.default
     return modules
   },
   {}

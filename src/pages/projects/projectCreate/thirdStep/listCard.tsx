@@ -11,12 +11,13 @@ const SelectAfter = (props: any) => (
   </Select>
 );
 
-const ListCard = ({ info, onChange,onAdd,onDelete,showDelete }: any) => {
+const ListCard = ({ info, onChange, onAdd, onDelete, showDelete, editable }: any) => {
   const handleInfoChange = (prop: string, val: any) => {
     info[prop] = val
     onChange && onChange(info)
   }
   const handleModeCheckChange = (mode: any) => {
+    if(!editable) return
     const index = info.checkMode.indexOf(mode.id)
     index > -1 ? info.checkMode.splice(index, 1) : info.checkMode.push(mode.id)
     onChange && onChange(info)
@@ -25,11 +26,12 @@ const ListCard = ({ info, onChange,onAdd,onDelete,showDelete }: any) => {
     <div className="flex-h-c flex-wp">
       <div className="mv-5 flex-h-c">
         <label className="nowrap col-6 ft-15">访视名称:</label>
-        <Input placeholder="请输入" className="ml-10 mr-40" style={{ width: '160px' }} onChange={(e: any) => handleInfoChange('name', e.target.value)} />
+        <Input placeholder="请输入" disabled={!editable} className="ml-10 mr-40" style={{ width: '160px' }} onChange={(e: any) => handleInfoChange('name', e.target.value)} />
       </div>
       <div className="mv-5 flex-h-c">
         <label className="nowrap col-6 ft-15">访视开始时间:</label>
         <InputNumber
+          disabled={!editable}
           placeholder="请输入"
           className="ml-10 mr-40"
           style={{ width: '160px' }}
@@ -41,6 +43,7 @@ const ListCard = ({ info, onChange,onAdd,onDelete,showDelete }: any) => {
       <div className="mv-5 flex-h-c">
         <label className="nowrap col-6 ft-15">访视范围周期:</label>
         <InputNumber
+          disabled={!editable}
           placeholder="请输入"
           className="ml-10 mr-40"
           style={{ width: '160px' }}
@@ -50,14 +53,17 @@ const ListCard = ({ info, onChange,onAdd,onDelete,showDelete }: any) => {
           addonAfter={<SelectAfter onChange={(val: any) => handleInfoChange('rangeUtil', val)} />} />
       </div>
       <InputNumber
+        disabled={!editable}
         placeholder="输入误差天数"
         className="mr-40 mv-5"
         style={{ width: '150px' }}
         min={0}
         onChange={(val) => handleInfoChange('diffDay', val)}
       />
-      <Button type="primary" shape="round" className="mv-5" onClick={()=>onAdd&&onAdd()}>添加访视</Button>
-      {showDelete&&<Button type="primary" shape="round" className="mv-5 ml-15" onClick={()=>onDelete&&onDelete()}>删除访视</Button>}
+      {editable && <>
+        <Button type="primary" shape="round" className="mv-5" onClick={() => onAdd && onAdd()}>添加访视</Button>
+        {showDelete && <Button type="primary" shape="round" className="mv-5 ml-15" onClick={() => onDelete && onDelete()}>删除访视</Button>}
+      </>}
     </div>
     <div className="flex-h-c flex-wp">
       {USE_MODES.map((v): any =>

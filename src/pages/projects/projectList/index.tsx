@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import { Input, Button, Image, Tabs, Pagination } from 'antd';
 import { useNavigate } from 'react-router-dom';
 import { Add1Img } from '@/assets/imgs';
-import { Loading } from '@/components';
+import { Loading, SelectNet } from '@/components';
 import ProjectCard from '../components/projectCard';
 import './index.less';
 const { Search } = Input;
@@ -14,7 +14,7 @@ const TabItems = [
   { label: '已逾期', key: 'oueDate' }
 ];
 const ProjectList = () => {
-  const navigate= useNavigate()
+  const navigate = useNavigate()
   const [list, setList] = useState<any[]>([]);
   const [paginationInfo, setPaginationInfo] = useState({
     pageNum: 1,
@@ -24,10 +24,10 @@ const ProjectList = () => {
   // eslint-disable-next-line
   let [curTabKey, setCurTabKey] = useState(TabItems[0].key)
   const [loading, setLoading] = useState(false);
-  useEffect(() => {
+  useEffect(() => {    
     getLists();
   }, []);
-  const onSearch = (searchVal: string) => {
+  const onSearch = (prop: string, searchVal: any) => {
     // eslint-disable-next-line
     console.log(searchVal)
   };
@@ -49,10 +49,10 @@ const ProjectList = () => {
   };
   const getLists = () => {
     setLoading(true);
-    setTimeout(() => {
+    setTimeout(() => { 
       setLoading(false);
       const arr = [];
-      for (let i = 0; i < 9; i++) {
+      for (let i = 1; i < 9; i++) {
         arr.push({
           id: i,
           name: '项目名称',
@@ -78,15 +78,15 @@ const ProjectList = () => {
           unit:
             i % 2 === 0
               ? [
-                  {
-                    name: '上海市第一人民医院',
-                    department: ' 呼吸与危重医学科'
-                  },
-                  {
-                    name: '浙江大学医学院附属二院',
-                    department: ' 呼吸与危重医学科'
-                  }
-                ]
+                {
+                  name: '上海市第一人民医院',
+                  department: ' 呼吸与危重医学科'
+                },
+                {
+                  name: '浙江大学医学院附属二院',
+                  department: ' 呼吸与危重医学科'
+                }
+              ]
               : [],
           header: [
             { name: '张三', title: '教授' },
@@ -104,12 +104,21 @@ const ProjectList = () => {
           <div className="project__title ft-16 ft-b flex-h-c">科研中心</div>
           <Search
             className="ml-15"
-            placeholder="全部科研中心"
-            onSearch={onSearch}
+            placeholder="项目名称"
+            onSearch={(val) => onSearch('name', val)}
+            style={{ width: 200 }}
+          />
+          <label className='col-6 ml-40'>
+            科研中心：
+          </label>
+          <SelectNet
+            className="ml-10"
+            placeholder="请选择"
+            onChange={(val: any) => onSearch('depart', val)}
             style={{ width: 200 }}
           />
         </div>
-        <Button type="primary" ghost shape="round" onClick={()=>navigate('create')}>
+        <Button type="primary" ghost shape="round" onClick={() => navigate('create')}>
           <>
             <Image src={Add1Img} preview={false} width={14} height={14} />
             <span className="ml-10">创建项目</span>

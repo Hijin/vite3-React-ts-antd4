@@ -9,7 +9,7 @@ import './index.less'
 const { RangePicker } = DatePicker;
 const FirstStep = () => {
   const navigate = useNavigate()
-  const { info, onInfoChange,onChangeStep }: any = useOutletContext();
+  const { info, editable,isEdit, onInfoChange, onChangeStep }: any = useOutletContext();
 
   const [departments, setDepartments] = useState([
     { key: new Date().getTime(), main: 1, count: 0 }
@@ -55,7 +55,10 @@ const FirstStep = () => {
         ...formValue
       }
     })
-    onChangeStep&&onChangeStep(1)
+    onChangeStep && onChangeStep(1)
+    if(isEdit){
+      return saveEdit()
+    }
     navigate('second')
   }
   const availableDepartments = () => {
@@ -73,6 +76,10 @@ const FirstStep = () => {
     }
     return true
   }
+  const saveEdit = ()=>{
+    // TODO: save
+    navigate(-1)
+  }
 
   return <>
     <div className="pc-first bg-w br-10 mt-20 flex-1 flex-col over-auto">
@@ -84,6 +91,7 @@ const FirstStep = () => {
         labelWrap
         wrapperCol={{ flex: 1 }}
         colon={false}
+        disabled={!editable}
       >
         <Form.Item label="项目名称:" name="name" rules={[{ required: true, message: '请输入项目名称' }]}>
           <Input placeholder='请输入' />
@@ -114,9 +122,9 @@ const FirstStep = () => {
         </Form.Item>
       </Form>
     </div>
-    <div className='t-c'>
-      <Button className='pc-first__commit-btn' type="primary" shape="round" onClick={handleCommit}>下一步:设置入排条件</Button>
-    </div>
+    {editable && <div className='t-c'>
+      <Button className='pc-first__commit-btn' type="primary" shape="round" onClick={handleCommit}>{isEdit?'保存':'下一步:设置入排条件'}</Button>
+    </div>}
   </>
 
 }
