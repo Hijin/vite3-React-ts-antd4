@@ -1,11 +1,12 @@
 
 import { useEffect, useState, useRef } from 'react'
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useOutletContext } from 'react-router-dom';
 import { Table, Button, Popconfirm, message } from 'antd'
 import './index.less'
 
 const SecondStep = () => {
   const navigate = useNavigate()
+  const { info, onInfoChange,onChangeStep }: any = useOutletContext();
   const [standards, setStandards] = useState<any[]>([])
   const [loading, setLoading] = useState(false)
   const selectedStandards = useRef([])
@@ -37,10 +38,14 @@ const SecondStep = () => {
     selIndex > -1 && selectedStandards.current.splice(selIndex, 1)
   }
   const handleCommit = () => {
-    console.log(selectedStandards.current);
     if (!selectedStandards.current.length) {
       return message.warning('请选择入排标准~')
     }
+    onInfoChange && onInfoChange({
+      ...info,
+      standards: selectedStandards.current
+    })
+    onChangeStep&&onChangeStep(2)
     navigate('/researchpc/projects/create/third')
   }
   const TableColumns: any = [

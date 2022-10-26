@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useOutletContext } from 'react-router-dom';
 import { Form, Input, DatePicker, Button, Table, message } from 'antd'
 import moment from 'moment';
 import { SelectNet } from '@/components'
@@ -9,6 +9,8 @@ import './index.less'
 const { RangePicker } = DatePicker;
 const FirstStep = () => {
   const navigate = useNavigate()
+  const { info, onInfoChange,onChangeStep }: any = useOutletContext();
+
   const [departments, setDepartments] = useState([
     { key: new Date().getTime(), main: 1, count: 0 }
   ])
@@ -16,9 +18,11 @@ const FirstStep = () => {
   const [form] = Form.useForm()
   useEffect(() => {
     setShowDepartDelete(departments.length > 1)
-    console.log(departments.length);
-
   }, [departments])
+  useEffect(() => {
+    console.log("info==>", info);
+  }, [info])
+
   const handleDepartmentsChange = () => {
     form.setFieldValue('depart', departments)
   }
@@ -43,8 +47,15 @@ const FirstStep = () => {
     return current && current < moment().endOf('day');
   };
   const handleCommit = async () => {
-    await form.validateFields()
+    const formValue = await form.validateFields()
     if (!availableDepartments()) return
+    onInfoChange && onInfoChange({
+      ...info,
+      baseInfo: {
+        ...formValue
+      }
+    })
+    onChangeStep&&onChangeStep(1)
     navigate('second')
   }
   const availableDepartments = () => {
@@ -99,7 +110,7 @@ const FirstStep = () => {
           <SelectNet mode="tags" />
         </Form.Item>
         <Form.Item label="科研中心:" name='depart' className='pc-first__form-item-table' rules={[{ required: true, message: '请添加科研中心' }]}>
-          <Table dataSource={departments} columns={cols} pagination={false}/>
+          <Table dataSource={departments} columns={cols} pagination={false} />
         </Form.Item>
       </Form>
     </div>
