@@ -2,7 +2,7 @@ import { useSearchParams } from 'react-router-dom';
 import { useState, useMemo } from 'react';
 import cs from 'classnames';
 import { USE_MODES, UMInfo } from '@/utils/constants';
-import comps from './components/common';
+import comps from './components';
 import './index.less';
 
 

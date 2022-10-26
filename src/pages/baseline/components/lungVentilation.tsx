@@ -1,12 +1,13 @@
-// 激发试验
+// 肺功能通气
 import { Form, Row, Col } from 'antd';
-import { Jfsy as FORMCONFIG } from './common';
+import { LungVentilation as FORMCONFIG } from './common';
 import UploadImg from './uploadImg';
 const Item = Form.Item;
 
+
 const Comp = () => {
   const [form] = Form.useForm();
-  const checkValue = Form.useWatch('checked', form) || '0';
+  const checkValue = Form.useWatch('isLungVentilation', form) || '0';
 
   const cancelHandle = () => {
     form.resetFields();
