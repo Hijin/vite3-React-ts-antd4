@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useOutletContext } from 'react-router-dom';
 import { Form, Input, DatePicker, Button, Table, message } from 'antd'
 import moment from 'moment';
 import { SelectNet } from '@/components'
@@ -9,6 +9,8 @@ import './index.less'
 const { RangePicker } = DatePicker;
 const FirstStep = () => {
   const navigate = useNavigate()
+  const { info, editable,isEdit, onInfoChange, onChangeStep }: any = useOutletContext();
+
   const [departments, setDepartments] = useState([
     { key: new Date().getTime(), main: 1, count: 0 }
   ])
@@ -16,9 +18,11 @@ const FirstStep = () => {
   const [form] = Form.useForm()
   useEffect(() => {
     setShowDepartDelete(departments.length > 1)
-    console.log(departments.length);
-
   }, [departments])
+  useEffect(() => {
+    console.log("info==>", info);
+  }, [info])
+
   const handleDepartmentsChange = () => {
     form.setFieldValue('depart', departments)
   }
@@ -43,8 +47,18 @@ const FirstStep = () => {
     return current && current < moment().endOf('day');
   };
   const handleCommit = async () => {
-    await form.validateFields()
+    const formValue = await form.validateFields()
     if (!availableDepartments()) return
+    onInfoChange && onInfoChange({
+      ...info,
+      baseInfo: {
+        ...formValue
+      }
+    })
+    onChangeStep && onChangeStep(1)
+    if(isEdit){
+      return saveEdit()
+    }
     navigate('second')
   }
   const availableDepartments = () => {
@@ -62,6 +76,10 @@ const FirstStep = () => {
     }
     return true
   }
+  const saveEdit = ()=>{
+    // TODO: save
+    navigate(-1)
+  }
 
   return <>
     <div className="pc-first bg-w br-10 mt-20 flex-1 flex-col over-auto">
@@ -73,6 +91,7 @@ const FirstStep = () => {
         labelWrap
         wrapperCol={{ flex: 1 }}
         colon={false}
+        disabled={!editable}
       >
         <Form.Item label="项目名称:" name="name" rules={[{ required: true, message: '请输入项目名称' }]}>
           <Input placeholder='请输入' />
@@ -99,13 +118,13 @@ const FirstStep = () => {
           <SelectNet mode="tags" />
         </Form.Item>
         <Form.Item label="科研中心:" name='depart' className='pc-first__form-item-table' rules={[{ required: true, message: '请添加科研中心' }]}>
-          <Table dataSource={departments} columns={cols} pagination={false}/>
+          <Table dataSource={departments} columns={cols} pagination={false} />
         </Form.Item>
       </Form>
     </div>
-    <div className='t-c'>
-      <Button className='pc-first__commit-btn' type="primary" shape="round" onClick={handleCommit}>下一步:设置入排条件</Button>
-    </div>
+    {editable && <div className='t-c'>
+      <Button className='pc-first__commit-btn' type="primary" shape="round" onClick={handleCommit}>{isEdit?'保存':'下一步:设置入排条件'}</Button>
+    </div>}
   </>
 
 }

@@ -1,5 +1,7 @@
 import { useEffect, useState } from 'react';
-import { Image, Button } from 'antd';
+import { Image, Button, Modal } from 'antd';
+import { ExclamationCircleOutlined } from '@ant-design/icons';
+import { useNavigate } from 'react-router-dom';
 import cs from 'classnames';
 import { Tool } from '@/utils';
 import './index.less';
@@ -29,6 +31,7 @@ const StateConfigs = {
   }
 };
 const ProjectCard = ({ info }: any) => {
+  const navigate = useNavigate()
   const [stateConfig, setStateConfig] = useState<any>({});
   useEffect(() => {
     const config = Object.values(StateConfigs).find(
@@ -39,15 +42,27 @@ const ProjectCard = ({ info }: any) => {
 
   const handleBottomAction = (action: string) => {
     if (action === '详情') {
-      return;
+      return navigate(`create?id=${info.id}&detail=1`)
     }
     if (action === '编辑') {
-      return;
+      return navigate(`create?id=${info.id}`);
     }
     if (action === '删除') {
-      return;
+      return handleDeleteProject();
     }
   };
+  const handleDeleteProject = () => {
+    Modal.confirm({
+      title: '确定删除该项目?',
+      icon: <ExclamationCircleOutlined />,
+      content: '删除后不可恢复！',
+      onOk() {
+        return new Promise((resolve) => {
+          setTimeout(resolve, 1000);
+        });
+      },
+    });
+  }
 
   return (
     <div className="project-card">

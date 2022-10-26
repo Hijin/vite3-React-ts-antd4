@@ -1,14 +1,15 @@
 
 import { useEffect, useState, useRef } from 'react'
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useOutletContext } from 'react-router-dom';
 import { Table, Button, Popconfirm, message } from 'antd'
 import './index.less'
 
 const SecondStep = () => {
   const navigate = useNavigate()
+  const { info, onInfoChange, onChangeStep, editable }: any = useOutletContext();
   const [standards, setStandards] = useState<any[]>([])
   const [loading, setLoading] = useState(false)
-  const selectedStandards = useRef([])
+  const selectedStandards = useRef<any[]>([])
   useEffect(() => {
     getStandards()
   }, [])
@@ -37,24 +38,28 @@ const SecondStep = () => {
     selIndex > -1 && selectedStandards.current.splice(selIndex, 1)
   }
   const handleCommit = () => {
-    console.log(selectedStandards.current);
     if (!selectedStandards.current.length) {
       return message.warning('请选择入排标准~')
     }
+    onInfoChange && onInfoChange({
+      ...info,
+      standards: selectedStandards.current
+    })
+    onChangeStep && onChangeStep(2)
     navigate('/researchpc/projects/create/third')
   }
   const TableColumns: any = [
     { title: '序号', dataIndex: 'index', key: 'index', render: (text: string, record: any, index: number) => <span>{index + 1}</span> },
-    { title: '入选标准', dataIndex: 'standard', key: 'standard' },
-    {
-      title: '操作', dataIndex: 'option', key: 'option', width: 150, render: (text: string, record: any, index: number) =>
-        <Popconfirm
-          placement="bottomRight"
-          title='确定删除该入选标准嘛？'
-          onConfirm={() => handleDeleteStandard(record, index)}
-        ><Button type="link" danger>删除</Button></Popconfirm>
-    },
+    { title: '入选标准', dataIndex: 'standard', key: 'standard' }
   ]
+  editable && TableColumns.push({
+    title: '操作', dataIndex: 'option', key: 'option', width: 150, render: (text: string, record: any, index: number) =>
+      <Popconfirm
+        placement="bottomRight"
+        title='确定删除该入选标准嘛？'
+        onConfirm={() => handleDeleteStandard(record, index)}
+      ><Button type="link" danger>删除</Button></Popconfirm>
+  },)
   return <>
     <div className="pc-second br-10 bg-w mt-30 flex-1 flex-col over-hide">
       <div className="pc-second__title ft-16 ft-b flex-h-c">入选标准设置</div>
@@ -66,12 +71,13 @@ const SecondStep = () => {
         loading={loading}
         pagination={false}
         rowSelection={{
-          onChange: handleStandardChange
+          onChange: handleStandardChange,
+          getCheckboxProps: () => ({disabled: !editable}),
         }} />
     </div>
-    <div className='t-c'>
+    {editable && <div className='t-c'>
       <Button className='pc-first__commit-btn' type="primary" shape="round" onClick={handleCommit}>设置排出标准</Button>
-    </div>
+    </div>}
   </>
 }
 
