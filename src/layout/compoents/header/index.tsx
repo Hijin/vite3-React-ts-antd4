@@ -7,9 +7,9 @@ import imgModule from '@/assets/imgs';
 import './index.less';
 
 const DropdownMenuItems = [
-  { key: 'infoSet', label: '资料设置', path: '/researchpc/setting?index=0' },
-  { key: 'password', label: '修改密码', path: '/researchpc/setting?index=1' },
-  { key: 'loginRecord', label: '登录记录', path: '/researchpc/setting?index=2' },
+  { key: 'infoSet', label: '资料设置', path: '/researchpc/personSettings?index=0' },
+  { key: 'password', label: '修改密码', path: '/researchpc/personSettings?index=1' },
+  { key: 'loginRecord', label: '登录记录', path: '/researchpc/personSettings?index=2' },
   { key: 'loginOut', label: '退出登录', path: '/researchpc/setting' }
 ];
 
@@ -41,7 +41,7 @@ const Header = () => {
   );
   return (
     <div className="home-layout-header flex-h-c flex-b">
-      <div className="flex-h-c flex-1">
+      <div className="flex-h-c flex-1 h-full">
         <div className="flex-h-c">
           <Image
             src={imgModule.logo}

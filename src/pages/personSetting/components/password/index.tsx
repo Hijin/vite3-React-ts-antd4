@@ -61,7 +61,7 @@ const SetPassword = () => {
             <Button type='default' htmlType='reset'>
               取消
             </Button>
-            <Button type="primary" htmlType="submit">
+            <Button type="primary" htmlType="submit" className='ml-25'>
               保存
             </Button>
           </Form.Item>
