@@ -1,6 +1,7 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Image, Dropdown, Menu } from 'antd';
 import { useNavigate, useLocation } from 'react-router-dom';
+import { headerNavItems } from '@/routes'
 import cs from 'classnames';
 import imgModule from '@/assets/imgs';
 import './index.less';
@@ -10,37 +11,17 @@ const DropdownMenuItems = [
   { key: 'loginOut', label: '退出登录', path: '/researchpc/setting' }
 ];
 
-const HeaderNavItems = [
-  {
-    key: 'home',
-    label: '首页',
-    icon: imgModule.header_home,
-    selIcon: imgModule.header_home_sel,
-    path: 'home'
-  },
-  {
-    key: 'patient',
-    label: '患者管理',
-    icon: imgModule.header_patient,
-    selIcon: imgModule.header_patient_sel,
-    path: 'suffer'
-  },
-  {
-    key: 'visit',
-    label: '随访管理',
-    icon: imgModule.header_visit,
-    selIcon: imgModule.header_visit_sel,
-    path: 'visit'
-  }
-];
-
 const Header = () => {
   const navigate = useNavigate();
   const location = useLocation();
-  const [navCurKey, setNavCurKey] = useState();
-
+  const [navCurKey, setNavCurKey] = useState<string[]>([]);
+  useEffect(() => {
+    const { pathname } = location
+    const keysArr = pathname.split('/').slice(2)
+    setNavCurKey(keysArr)
+  }, [location])
   const handleNavClick = (item: any) => {
-    setNavCurKey(item.key);
+    setNavCurKey([item.path]);
     item.path && navigateToPath(item.path);
   };
   const handleMenuClick = (e: any) => {
@@ -68,23 +49,23 @@ const Header = () => {
           <div className="col-w ft-18 ft-b">项目名称</div>
         </div>
         <div className="flex-1 flex-h-c h-full ml-20">
-          {HeaderNavItems.map((v) => (
+          {headerNavItems.map((v) => (
             <div
-              key={v.key}
+              key={v.path}
               className={cs('home-layout-header__nav-item pointer flex-h-c', {
-                'bg-w': navCurKey === v.key
+                'bg-w': navCurKey.indexOf(v.path) > -1
               })}
               onClick={() => handleNavClick(v)}
             >
               <Image
-                src={navCurKey === v.key ? v.selIcon : v.icon}
+                src={navCurKey.indexOf(v.path) > -1 ? v.selIcon : v.icon}
                 preview={false}
                 className="home-layout-header__nav-item__icon"
               />
               <div
                 className={cs('home-layout-header__nav-item__label ml-15', {
                   'home-layout-header__nav-item__label--activity':
-                    navCurKey === v.key
+                    navCurKey.indexOf(v.path) > -1
                 })}
               >
                 {v.label}
