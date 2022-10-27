@@ -1,0 +1,106 @@
+.dialog-wrapper {
+    margin: 0 auto;
+    overflow: hidden;
+    overflow-y: auto;
+    display: none;
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    background: rgba(0, 0, 0, 0.5);
+    &.visit {
+        display: block;
+        // transition:cubic-bezier(0.23, 1, 0.320, 1);
+        transition: 3s;
+    }
+    &.hide {
+        display: none;
+    }
+    z-index: 999;
+}
+.dialog-container {
+    position: absolute;
+    top: 10%;
+    left: 50%;
+    transform: translate(-50%, -50%); /* 50%为自身尺寸的一半 */
+    -webkit-transform: translate(-50%, 0);
+    // border: 1px solid red;
+    // max-height: 80%;
+    overflow: hidden;
+    // overflow-y: scroll;
+    border-radius: 10px;
+}
+.dialog-content {
+    background-color: #fff;
+    visibility: hidden;
+    opacity: 0;
+    width: 750px;
+    min-height: 200px;
+    max-height: 60%;
+    // overflow-y: auto;
+    // padding: 0px 24px;
+    box-shadow: 0px 2px 12px 0px rgba(0, 0, 0, 0.06);
+    border-radius: 10px;
+    border: 1px solid #e4e7ed;
+
+    & > header.dialog-header {
+        padding-left: 24px;
+        height: 55px;
+        border-bottom: 1px solid;
+        border-color: rgba(0, 0, 0, 0.05);
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        & > h3 {
+            font-size: 16px;
+            font-family: 'PingFang Medium_0';
+            font-weight: 500;
+            color: rgba(0, 0, 0, 0.85);
+        }
+        & > div {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 50px;
+            height: 50px;
+            cursor: pointer;
+            & > i {
+                transform: translateY(6px);
+            }
+        }
+    }
+    & > section.dialog-section {
+        padding: 19px 24px;
+        overflow: hidden;
+        overflow-y: scroll;
+        max-height: 500px;
+        // border: 1px solid red;
+        // margin-bottom: 40px;
+    }
+    & > footer.dialog-footer {
+        padding: 20px 0;
+        padding-right: 24px;
+        position: absolute;
+        bottom: 0;
+        // right: 24px;
+        display: flex;
+        justify-content: right;
+        text-align: right;
+        // border: 1px solid red;
+        width: 100%;
+        background-color: #fff;
+    }
+
+    &.visit {
+        transition: 0.2s;
+        visibility: visible;
+        opacity: 1;
+    }
+    &.hide {
+        transition: 0.2s;
+        visibility: hidden;
+        opacity: 0;
+        height: 0 !important;
+    }
+}

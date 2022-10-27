@@ -23,7 +23,7 @@ const Login = lazy(() => import('@/pages/login'));
 import imgModule from '@/assets/imgs';
 
 // https://reactrouter.com/en/v6.3.0/getting-started/concepts
-/** 
+/**
  * 主页头部导航
  * path：子路径（菜单key）,需唯一
  * label:菜单label
