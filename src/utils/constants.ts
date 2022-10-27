@@ -4,7 +4,7 @@ export type UMInfo = {
   isFinish?: boolean;
 }
 // 检查项
-export const USE_MODES: UMInfo[]  = [
+export const USE_MODES: UMInfo[] = [
   {
     id: 'entryInfo',
     name: '人口信息学',
@@ -71,3 +71,9 @@ export const USE_MODES: UMInfo[]  = [
     name: '临床试验结束页',
   }
 ]
+// 性别
+export const gender = {
+  male: { value: 0, label: '男性' },
+  female: { value: 1, label: '女性' },
+  secret: { value: 2, label: '保密' },
+}

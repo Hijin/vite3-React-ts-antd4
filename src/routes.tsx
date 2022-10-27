@@ -14,17 +14,15 @@ import ProjectCreateSecondStep from '@/pages/projects/projectCreate/secondStep';
 import ProjectCreateThirdStep from '@/pages/projects/projectCreate/thirdStep';
 import ProjectCreateDone from '@/pages/projects/projectCreate/done';
 import Message from '@/pages/message';
-import Config from '@/pages/config';
-import Means from '@/pages/config/pages/meas';
-import Password from '@/pages/config/pages/password';
-import Record from '@/pages/config/pages/record';
 import UserSet from '@/pages/setting/user';
 import UserDetail from '@/pages/setting/user/detail';
 import CenterSet from '@/pages/setting/center';
 import RoleSet from '@/pages/setting/role';
 import RoleDetail from '@/pages/setting/role/detail';
+import PersonSettings from '@/pages/personSetting';
 const Layout = lazy(() => import('@/layout'));
 const Login = lazy(() => import('@/pages/login'));
+const PageError = lazy(() => import('@/pages/pageError'));
 import imgModule from '@/assets/imgs';
 
 // https://reactrouter.com/en/v6.3.0/getting-started/concepts
@@ -120,32 +118,9 @@ export default [
       ...homeMenus,
       ...headerNavItems,
       {
-        path: '/researchpc/config',
-        name: 'config',
-        element: <Config />,
-        children: [
-          {
-            path: 'means',
-            name: 'means',
-            label: '资料设置',
-            exec: true,
-            element: <Means />
-          },
-          {
-            path: 'password',
-            name: 'password',
-            label: '修改密码',
-            exec: true,
-            element: <Password />
-          },
-          {
-            path: 'record',
-            name: 'record',
-            label: '登陆记录',
-            exec: true,
-            element: <Record />
-          }
-        ]
+        path: '/researchpc/personSettings',
+        name: 'personSettings',
+        element: <PersonSettings />
       },
       {
         path: 'suffer/baseline',
@@ -159,5 +134,8 @@ export default [
     name: 'login',
     element: <Login />
   },
-  { path: '*', element: <div>404</div> }
+  { path: '/researchpc/403', element: <PageError state='403' /> },
+  { path: '/researchpc/500', element: <PageError state='500' /> },
+  { path: '/researchpc/502', element: <PageError state='502' /> },
+  { path: '*', element: <PageError state='404' /> }
 ];
