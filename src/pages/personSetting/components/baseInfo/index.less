@@ -1,0 +1,70 @@
+.base-info {
+  display: flex;
+  justify-content: space-around;
+
+  // 修改 label 颜色
+  label {
+    color: #666666;
+  }
+
+  .ld_dd-base-info {
+    width: 420px;
+    display: flex;
+    justify-content: center;
+    box-sizing: content-box;
+    padding-right: 100px;
+    padding-left: 10px;
+
+    .ld_dd-base-info-header {
+      font-size: 16px;
+      font-family: PingFangSC-Medium, PingFang SC;
+      font-weight: 500;
+      color: rgba(0, 0, 0, 0.85);
+      line-height: 24px;
+    }
+
+    .ant-upload.ant-upload-drag {
+      width: 120px;
+      height: 120px;
+      background: #FFFFFF;
+      border: 1px dotted #C4C6CF;
+    }
+
+    .ld-upload-text {
+      color: #666666;
+    }
+
+    .ld-upload-hint {
+      font-size: 12px;
+      margin-top: 10px;
+      color: #999999;
+      white-space: nowrap;
+    }
+
+  }
+
+  .ld_dd-fix-portrait {
+    min-width: 400px;
+    display: flex;
+    flex-direction: column;
+    margin-top: 56px;
+
+    .ld_dd-fix-portrait-img {
+      width: 120px;
+      height: 120px;
+      // border: 1px solid #008478;
+      border-radius: 15px;
+      overflow: hidden;
+
+      & > img {
+        width: 100%;
+        height: 100%;
+      }
+    }
+    .ld_dd-fix-portrait-btn {
+      border: 1px solid #008478;
+      color: #008478;
+      margin: 12px 17px;
+    }
+  }
+}

@@ -7,7 +7,9 @@ import imgModule from '@/assets/imgs';
 import './index.less';
 
 const DropdownMenuItems = [
-  { key: 'password', label: '设置密码', path: '/researchpc/login' },
+  { key: 'infoSet', label: '资料设置', path: '/researchpc/setting?index=0' },
+  { key: 'password', label: '修改密码', path: '/researchpc/setting?index=1' },
+  { key: 'loginRecord', label: '登录记录', path: '/researchpc/setting?index=2' },
   { key: 'loginOut', label: '退出登录', path: '/researchpc/setting' }
 ];
 
@@ -38,7 +40,7 @@ const Header = () => {
     <Menu onClick={handleMenuClick} items={DropdownMenuItems} />
   );
   return (
-    <div className="home-layout-header flex-b">
+    <div className="home-layout-header flex-h-c flex-b">
       <div className="flex-h-c flex-1">
         <div className="flex-h-c">
           <Image
@@ -77,7 +79,9 @@ const Header = () => {
       <Dropdown
         className="flex-h-c"
         overlay={DropdownMenu}
+        overlayClassName='home-layout-header__dropdown'
         placement="bottomRight"
+        arrow
       >
         <div>
           <Image
