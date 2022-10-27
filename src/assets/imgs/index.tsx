@@ -10,16 +10,16 @@ export { default as Add1Img } from './add1.png';
 
 
 const files = {
-  ...import.meta.globEager('./*.png'),
-  ...import.meta.globEager('./*.jpg'),
+  ...import.meta.globEager('./**/*.png'),
+  ...import.meta.globEager('./**/*.jpg'),
 }
 const modules = Object.keys(files).reduce(
   (modules: { [key: string]: any }, path: string) => {
-    const moduleName = path.replace(/\.\/|\.png|\.jpg/g, '');
+    const pathArr = path.split(/\.\/|\.|\//)
+    const moduleName = pathArr[pathArr.length - 2];
     modules[moduleName] = (files[path] as any)?.default
     return modules
   },
   {}
 )
-
 export default modules

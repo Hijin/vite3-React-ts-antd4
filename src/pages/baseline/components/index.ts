@@ -2,19 +2,19 @@
 import EntryInfo  from './entryInfo';
 import ViewDate from './viewDate';
 import Diagnose from './diagnose';
-import Xcg from './xcg';
-import Xct from './xct';
-import Fgntq from './fgntq';
-import Xzsy from './xzsy';
+import BoutineBlood from './boutineBlood';
+import ChestCT from './chestCT';
+import LungVentilation from './lungVentilation';
+import Broncho from './broncho';
 import Jfsy from './jfsy';
 import Feno from './feno';
 import Rpbzhs from './rpbzhs';
-import Tltc from './tltc';
-import Yfywff from './yfywff';
-import Yjywhs from './yjywhs';
-import Blfysj from './blfysj';
-import Aqxsf from './aqxsf';
-import Lcsyjsy from './lcsyjsy';
+import FallOffOut from './fallOffOut';
+import StudyDelivery from './studyDelivery';
+import StudyRecycling from './studyRecycling';
+import Adverse from './adverse';
+import Access from './access';
+import EndPage from './endPage';
 
 
 const comps: {[key: string]: () => JSX.Element} = {
@@ -25,13 +25,13 @@ const comps: {[key: string]: () => JSX.Element} = {
   // 诊断
   diagnose: Diagnose,
   // 血常规
-  xcg: Xcg,
+  boutineBlood: BoutineBlood,
   // 胸部CT
-  xct: Xct,
+  chestCT: ChestCT,
   // 肺功能通气
-  fgntq: Fgntq,
+  lungVentilation: LungVentilation,
   // 舒张实验
-  xzsy: Xzsy,
+  broncho: Broncho,
   // 激发试验
   jfsy: Jfsy,
   // FeNO
@@ -39,17 +39,17 @@ const comps: {[key: string]: () => JSX.Element} = {
   // 入排标准核实
   rpbzhs: Rpbzhs,
   // 脱落/剔除
-  tltc: Tltc,
+  fallOffOut: FallOffOut,
   // 研究药物发放
-  yfywff: Yfywff,
+  studyDelivery: StudyDelivery,
   // 研究药物回收
-  yjywhs: Yjywhs,
+  studyRecycling: StudyRecycling,
   // 不良反应事件
-  blfysj: Blfysj,
+  adverse: Adverse,
   // 安全性随访
-  aqxsf: Aqxsf,
+  access: Access,
   // 临床试验结束页
-  lcsyjsy: Lcsyjsy
+  endPage: EndPage
 }
 
 export default comps;

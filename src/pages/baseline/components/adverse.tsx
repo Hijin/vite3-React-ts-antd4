@@ -1,12 +1,13 @@
-// 激发试验
+// 不良反应事件
 import { Form, Row, Col } from 'antd';
-import { Jfsy as FORMCONFIG } from './common';
+import { Adverse as FORMCONFIG } from './common';
 import UploadImg from './uploadImg';
 const Item = Form.Item;
 
+
 const Comp = () => {
   const [form] = Form.useForm();
-  const checkValue = Form.useWatch('checked', form) || '0';
+  const isAdverseReaction = Form.useWatch('isAdverseReaction', form) || '0';
 
   const cancelHandle = () => {
     form.resetFields();
@@ -22,15 +23,15 @@ const Comp = () => {
     <>
       <Row>
         <Col span={14}>
-          <Form form={form} onFinish={onFinish} wrapperCol={{span: 24}} className='bl-um-form-wrap'>
+          <Form form={form} onFinish={onFinish} className='bl-um-form-wrap'>
             {
               FORMCONFIG.map((item, i) => {
 
-                if(i === 1 && checkValue === '0') return null;
-                if(i > 1 && checkValue === '1') return null;
+                if(i === 1 && isAdverseReaction === '0') return null;
+                if(i > 1 && isAdverseReaction === '1') return null;
 
                 return(
-                  <Item key={`entryInfo_${i}`} name={item.name} label={item.label} labelCol={{span: 6}} wrapperCol={{span: 18}} initialValue={item.initialValue}>
+                  <Item key={`entryInfo_${i}`} name={item.name} label={item.label} labelCol={{span: 6}} wrapperCol={{span: item?.span || 18}} initialValue={item.initialValue}>
                     {item.children}
                   </Item>
                 )

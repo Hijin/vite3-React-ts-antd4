@@ -5,7 +5,6 @@
     font-size: 16px;
     font-family: PingFangSC-Medium, PingFang SC;
     font-weight: 400;
-    transform: translateY(-5px);
 
     .bl-um-wrapper-sub {
       color: #999999;
@@ -77,7 +76,7 @@
   .bl-um-contain {
     margin-top: 12px;
     padding: 20px 30px;
-    min-height: 500px;
+    height: calc(100vh - 340px);
     background: #FFFFFF;
     border-radius: 10px 10px 0 0;
     position: relative;
@@ -94,8 +93,13 @@
 
     .bl-um-contain-content {
       padding: 20px;
+      .bl-um-form-wrap-double {
+        max-width: 800px;
+      }
       .bl-um-form-wrap {
         margin-bottom: 30px;
+        height: calc(100vh - 510px);
+        overflow-y: auto;
       }
       .input-group-custom-flex {
         display: flex;
@@ -112,6 +116,14 @@
           text-overflow:ellipsis;
           transform: translateY(3px);
         }
+      }
+      .um-upload-img-wrap {
+        box-sizing: border-box;
+        padding: 0 20px;
+        height: calc(100% - 20px);
+        overflow-y: auto;
+        display: flex;
+        align-items: top;
       }
     }
 

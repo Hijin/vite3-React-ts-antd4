@@ -1,12 +1,12 @@
-// 激发试验
+// 研究药物发放
 import { Form, Row, Col } from 'antd';
-import { Jfsy as FORMCONFIG } from './common';
+import { StudyDelivery as FORMCONFIG } from './common';
 import UploadImg from './uploadImg';
 const Item = Form.Item;
 
 const Comp = () => {
   const [form] = Form.useForm();
-  const checkValue = Form.useWatch('checked', form) || '0';
+  const checkValue = Form.useWatch('isStudyDrugDelivery', form) || '0';
 
   const cancelHandle = () => {
     form.resetFields();
@@ -22,7 +22,7 @@ const Comp = () => {
     <>
       <Row>
         <Col span={14}>
-          <Form form={form} onFinish={onFinish} wrapperCol={{span: 24}} className='bl-um-form-wrap'>
+          <Form form={form} onFinish={onFinish} labelCol={{span: 8}} wrapperCol={{span: 10}}>
             {
               FORMCONFIG.map((item, i) => {
 
@@ -30,7 +30,7 @@ const Comp = () => {
                 if(i > 1 && checkValue === '1') return null;
 
                 return(
-                  <Item key={`entryInfo_${i}`} name={item.name} label={item.label} labelCol={{span: 6}} wrapperCol={{span: 18}} initialValue={item.initialValue}>
+                  <Item key={`entryInfo_${i}`} name={item.name} label={item.label} initialValue={item.initialValue}>
                     {item.children}
                   </Item>
                 )

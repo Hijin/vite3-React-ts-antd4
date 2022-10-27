@@ -18,20 +18,20 @@ export const USE_MODES: UMInfo[]  = [
     name: '诊断',
   },
   {
-    id: 'xcg',
+    id: 'boutineBlood',
     name: '血常规',
   },
   {
-    id: 'xct',
+    id: 'chestCT',
     name: '胸部CT',
     isFinish: true
   },
   {
-    id: 'fgntq',
+    id: 'lungVentilation',
     name: '肺功能通气',
   },
   {
-    id: 'xzsy',
+    id: 'broncho',
     name: '舒张实验',
   },
   {
@@ -47,27 +47,27 @@ export const USE_MODES: UMInfo[]  = [
     name: '入排标准核实',
   },
   {
-    id: 'tltc',
+    id: 'fallOffOut',
     name: '脱落/剔除',
   },
   {
-    id: 'yfywff',
+    id: 'studyDelivery',
     name: '研究药物发放',
   },
   {
-    id: 'yjywhs',
+    id: 'studyRecycling',
     name: '研究药物回收',
   },
   {
-    id: 'blfysj',
+    id: 'adverse',
     name: '不良反应事件',
   },
   {
-    id: 'aqxsf',
+    id: 'access',
     name: '安全性随访',
   },
   {
-    id: 'lcsyjsy',
+    id: 'endPage',
     name: '临床试验结束页',
   }
 ]
