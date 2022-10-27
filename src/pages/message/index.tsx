@@ -20,7 +20,7 @@ const Message = () => {
   // const InfoCenterData = [];
 
   if (informationCenter.loading) {
-    return '';
+    return <span>加载中</span>;
   }
 
   return (
