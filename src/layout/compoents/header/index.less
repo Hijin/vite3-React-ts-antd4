@@ -47,6 +47,40 @@
       }
     }
   }
+
+  &__dropdown {
+    width: 180px;
+    .ant-dropdown-arrow {
+      top: 0;
+    }
+
+    .ant-dropdown-menu {
+      margin-top: -10px;
+      box-shadow: 0px 2px 12px 0px rgb(0 0 0 / 6%);
+      border: 1px solid #E4E7ED;
+      border-radius: 5px;
+    }
+
+    .ant-dropdown-menu-item {
+      font-size: 14px;
+      color: #606266;
+      padding: 5px 20px;
+
+      &:hover {
+        background: #F5FAFA;
+      }
+
+      &:active,
+      &:visited {
+        color: @primary-color;
+        font-weight: 500;
+        background: #F5FAFA;
+      }
+      &+.ant-dropdown-menu-item{
+        margin-top: 15px;
+      }
+    }
+  }
 }
 
 @media screen and (max-width: 1200px) {

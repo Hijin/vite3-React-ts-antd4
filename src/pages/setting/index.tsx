@@ -1,5 +1,5 @@
-const Setting = () => {
-  return <div>set</div>;
-};
+const Setting = () =>{
+  return <div>set</div>
+}
 
-export default Setting;
+export default Setting
