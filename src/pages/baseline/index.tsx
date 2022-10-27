@@ -30,7 +30,7 @@ const Baseline = () => {
   return (
     <section className='bl-um-wrapper'>
       <header className='bl-um-header'>
-        <span className='bl-um-wrapper-sub'>患者管理&nbsp;/&nbsp;{['已入组患者', '未入组患者'][isGroup]}&nbsp;/&nbsp;</span>{baseName}<span className='bl-um-wrapper-sup'>({['未随访', '已随访', '已逾期'][isView]})</span>
+        <span className='bl-um-wrapper-sub'>患者管理&nbsp;/&nbsp;{['未入组患者', '已入组患者'][isGroup]}&nbsp;/&nbsp;</span>{baseName}<span className='bl-um-wrapper-sup'>({['未随访', '已随访', '已逾期'][isView]})</span>
       </header>
       <section className='bl-um-mode-wrap'>
         <header className='bl-um-mode-head'>功能模块</header>
