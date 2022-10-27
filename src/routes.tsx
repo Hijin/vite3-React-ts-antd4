@@ -17,6 +17,7 @@ import Message from '@/pages/message';
 import PersonSettings from '@/pages/personSetting';
 const Layout = lazy(() => import('@/layout'));
 const Login = lazy(() => import('@/pages/login'));
+const PageError = lazy(() => import('@/pages/pageError'));
 import imgModule from '@/assets/imgs';
 
 // https://reactrouter.com/en/v6.3.0/getting-started/concepts
@@ -120,5 +121,8 @@ export default [
     name: 'login',
     element: <Login />
   },
-  { path: '*', element: <div>404</div> }
+  { path: '/researchpc/403', element: <PageError state='403' /> },
+  { path: '/researchpc/500', element: <PageError state='500' /> },
+  { path: '/researchpc/502', element: <PageError state='502' /> },
+  { path: '*', element: <PageError state='404' /> }
 ];
