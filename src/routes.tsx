@@ -4,7 +4,7 @@ import Home from '@/pages/home';
 import Suffer from '@/pages/suffer';
 import Baseline from '@/pages/baseline';
 import Visit from '@/pages/visit';
-import Setting from '@/pages/setting';
+// import Setting from '@/pages/setting';
 const Projects = lazy(() => import('@/pages/projects'));
 const ProjectsList = lazy(() => import('@/pages/projects/projectList'));
 // const ProjectCreate = lazy(() => import('@/pages/projects/projectCreate'));
@@ -18,6 +18,11 @@ import Config from '@/pages/config';
 import Means from '@/pages/config/pages/meas';
 import Password from '@/pages/config/pages/password';
 import Record from '@/pages/config/pages/record';
+import UserSet from '@/pages/setting/user';
+import UserDetail from '@/pages/setting/user/detail';
+import CenterSet from '@/pages/setting/center';
+import RoleSet from '@/pages/setting/role';
+import RoleDetail from '@/pages/setting/role/detail';
 const Layout = lazy(() => import('@/layout'));
 const Login = lazy(() => import('@/pages/login'));
 import imgModule from '@/assets/imgs';
@@ -86,7 +91,15 @@ export const homeMenus = [
     name: 'setting',
     label: '基础设置',
     exec: true,
-    element: <Setting />
+    // element: <Setting />,
+    children: [
+      { path: "", hideInMenu: true, element: <Navigate to="user" />  },
+      { path: 'user', name: '员工管理', label: '员工管理', element: <UserSet /> },
+      { path: 'user/detail', hideInMenu: true, name: '员工详情', label: '员工详情', element: <UserDetail /> },
+      { path: 'center', name: '中心管理', label: '中心管理', element: <CenterSet /> },
+      { path: 'role', name: '角色管理', label: '角色管理', element: <RoleSet /> },
+      { path: 'role/detail', hideInMenu: true, name: '员工详情', label: '员工详情', element: <RoleDetail /> },
+    ]
   },
   {
     path: 'message',

@@ -20,7 +20,7 @@ const SideMenu = () => {
     const { pathname } = location
     const keysArr = pathname.split('/').slice(2)
     setSelectedKeys(keysArr)
-    setCurKey(keysArr.slice(-1))    
+    setCurKey(keysArr.slice(-1))
   }, [location])
   const initMenus = (data: any[]) => {
     const menus = data
@@ -44,13 +44,15 @@ const SideMenu = () => {
   };
   const handleMenuClick = (e: any) => {
     console.log(222);
-    
-    const { keyPath, key } = e;    
+
+    const { keyPath, key } = e;
     if (key === curKey) return;
     setCurKey(key);
     const path = keyPath.reverse().join('/');
     navigate(path);
   };
+
+  console.log('menuItems', menuItems);
 
   return (
     <div
@@ -62,8 +64,10 @@ const SideMenu = () => {
         className="h-full"
         onClick={handleMenuClick}
         selectedKeys={selectedKeys}
+        mode='inline'
         items={menuItems}
-      />
+      >
+      </Menu>
       <div
         className={cs('home-layout-menu__collapsed-tip pointer flex-c', {
           'home-layout-menu__collapsed-tip--collapsed': collapsed
