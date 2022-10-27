@@ -20,8 +20,40 @@ import Password from '@/pages/config/pages/password';
 import Record from '@/pages/config/pages/record';
 const Layout = lazy(() => import('@/layout'));
 const Login = lazy(() => import('@/pages/login'));
+import imgModule from '@/assets/imgs';
 
 // https://reactrouter.com/en/v6.3.0/getting-started/concepts
+/** 
+ * 主页头部导航
+ * path：子路径（菜单key）,需唯一
+ * label:菜单label
+ * element：路由组件
+ * selIcon:选中时图片
+ * icon:未选中时图片
+ */
+export const headerNavItems = [
+  {
+    path: 'home',
+    label: '首页',
+    icon: imgModule.header_home,
+    selIcon: imgModule.header_home_sel,
+    element: <Home />
+  },
+  {
+    path: 'suffer',
+    label: '患者管理',
+    icon: imgModule.header_patient,
+    selIcon: imgModule.header_patient_sel,
+    element: <Suffer />,
+  },
+  {
+    path: 'visit',
+    label: '随访管理',
+    icon: imgModule.header_visit,
+    selIcon: imgModule.header_visit_sel,
+    element: <Visit />
+  }
+];
 /**
  * 主页菜单路由
  * path：子路径（菜单key）,需唯一
@@ -29,29 +61,6 @@ const Login = lazy(() => import('@/pages/login'));
  * element：路由组件
  * hideInMenu：是否显示在菜单中
  */
-export const navList = [
-  {
-    path: 'home',
-    label: '首页',
-    element: <Home />
-  },
-  {
-    path: 'suffer',
-    label: '患者管理',
-    element: <Suffer />,
-  },
-  {
-    path: 'suffer/baseline',
-    label: '患者基线',
-    element: <Baseline />
-  },
-  {
-    path: 'visit',
-    label: '随访管理',
-    element: <Visit />
-  }
-];
-
 export const homeMenus = [
   {
     path: 'projects',
@@ -64,7 +73,7 @@ export const homeMenus = [
       {
         path: 'create', name: 'projectsCreate', hideInMenu: true, element: <ProjectCreate />,
         children: [
-          { path: '', name: 'projectsCreateFirstStep', hideInMenu: true, element: <ProjectCreateFirstStep/> },
+          { path: '', name: 'projectsCreateFirstStep', hideInMenu: true, element: <ProjectCreateFirstStep /> },
           { path: 'second', name: 'projectsCreateSecondStep', hideInMenu: true, element: <ProjectCreateSecondStep />, },
           { path: 'third', name: 'projectsCreateThirdStep', hideInMenu: true, element: <ProjectCreateThirdStep />, },
           { path: 'done', name: 'projectsCreateDone', hideInMenu: true, element: <ProjectCreateDone />, }
@@ -96,6 +105,7 @@ export default [
     children: [
       { path: "", element: <Navigate to="projects" /> },
       ...homeMenus,
+      ...headerNavItems,
       {
         path: '/researchpc/config',
         name: 'config',
@@ -124,7 +134,11 @@ export default [
           }
         ]
       },
-      ...navList
+      {
+        path: 'suffer/baseline',
+        label: '患者基线',
+        element: <Baseline />
+      },
     ]
   },
   {
