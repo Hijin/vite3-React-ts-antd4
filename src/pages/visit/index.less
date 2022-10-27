@@ -18,6 +18,71 @@
         width: 44px;
         height: 44px;
       }
+      .um-visit-header-desc {
+        margin-left: 20px;
+        .um-visit-header-text {
+          font-size: 14px;
+          font-family: PingFangSC-Regular, PingFang SC;
+          font-weight: 400;
+          color: #333333;
+        }
+        .um-visit-header-title {
+          font-style: normal;
+          font-size: 28px;
+          font-family: PingFangSC-Semibold, PingFang SC;
+          font-weight: 600;
+          line-height: 10px;
+        }
+      }
+    }
+    .um-visit-header-0 {
+      .um-visit-header-desc {
+        .um-visit-header-title {
+          color: #FB6260;
+        }
+      }
+    }
+  }
+
+  .um-visit-contain {
+    .um-visit-filter {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 67px;
+      .um-visit-filter-left {
+        flex: 1;
+        display: flex;
+        justify-content: space-around;
+        padding-right: 180px;
+
+        font-size: 15px;
+        font-family: PingFangSC-Regular, PingFang SC;
+        font-weight: 400;
+        color: #999999;
+
+        & > span {
+          cursor: pointer;
+        }
+
+        & > span.selected {
+          font-weight: 600;
+          color: #128078;
+        }
+      }
+      .um-visit-filter-right {
+        flex: 1;
+        .um-visit-filter-search,
+        .um-visit-filter-center,
+        .um-visit-filter-visit {
+          width: 95%;
+        }
+      }
+    }
+    .um-visit-content {
+      background-color: #FFFFFF;
+      padding: 27px 24px;
+      border-radius: 4px;
     }
   }
 }
