@@ -1,0 +1,55 @@
+.login {
+    width: 100vw;
+    height: 100vh;
+    background-image: url('@/assets/imgs/login_bg.png');
+    background-position: center;
+    background-size: cover;
+    background-color: #efefef;
+    position: relative;
+
+    &__form {
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        width: 472px;
+        height: 520px;
+        transform: translate(-236px, -260px);
+        padding: 50px;
+        background: #ffffff;
+        box-shadow: 0px 16px 20px 0px rgba(0, 0, 0, 0.12);
+        border-radius: 10px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+
+        &__logo {
+            margin-bottom: 58px;
+        }
+
+        &__head {
+            margin-bottom: 43px;
+            font-size: 26px;
+            font-weight: 500;
+            color: #292929;
+            line-height: 37px;
+            letter-spacing: 2px;
+        }
+
+        &__commit {
+            width: 245px
+        }
+    }
+
+    &__footer {
+        position: absolute;
+        bottom: 42px;
+        left: 50%;
+        transform: translateX(-248px);
+        font-size: 12px;
+        font-family: PingFang Regular_0;
+        font-weight: 400;
+        color: rgba(0, 0, 0, 0.45);
+        line-height: 20px;
+    }
+
+}

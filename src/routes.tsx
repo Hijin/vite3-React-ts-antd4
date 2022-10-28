@@ -21,7 +21,7 @@ import RoleSet from '@/pages/setting/role';
 import RoleDetail from '@/pages/setting/role/detail';
 import PersonSettings from '@/pages/personSetting';
 const Layout = lazy(() => import('@/layout'));
-const Login = lazy(() => import('@/pages/login'));
+import Login from '@/pages/login';
 const PageError = lazy(() => import('@/pages/pageError'));
 import imgModule from '@/assets/imgs';
 
