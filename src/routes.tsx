@@ -16,7 +16,7 @@ import ProjectCreateDone from '@/pages/projects/projectCreate/done';
 import Message from '@/pages/message';
 import PersonSettings from '@/pages/personSetting';
 const Layout = lazy(() => import('@/layout'));
-const Login = lazy(() => import('@/pages/login'));
+import Login from '@/pages/login';
 const PageError = lazy(() => import('@/pages/pageError'));
 import imgModule from '@/assets/imgs';
 
