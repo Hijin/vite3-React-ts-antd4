@@ -7,10 +7,10 @@ import { message } from 'antd';
 // 错误信息，防止多次提示
 let errMsg = '';
 
+const baseURL = import.meta.env.VITE_HOST
 const service: any = axios.create({
-  // baseURL:`${process.env.VUE_APP_BASE_URL}/api`, // 自动配置的后台的请求的地址
+  baseURL, // 自动配置的后台的请求的地址
   timeout: 300 * 1000
-  // 设置请求的超时时间
   // headers: {'Content-Type': 'application/json'},
   // responseType: 'json', // 默认的
   // headers: {'Authorization': "Bearer " + utils.getToken()},
@@ -27,7 +27,7 @@ service.interceptors.request.use(
     }
     return config;
   },
-  (error: any) => {
+  (error: any) => {    
     return Promise.reject(error);
   }
 );
@@ -38,6 +38,8 @@ service.interceptors.request.use(
 service.interceptors.response.use(
   (response: any) => {
     const res = response.data;
+    console.log('res==>',response);
+    
     if (res.code === 200) {
       return Promise.resolve(res);
     } else {
@@ -54,56 +56,31 @@ service.interceptors.response.use(
     } else {
       tostMsg('服务器开小差了，请稍等~~');
     }
+    console.log("error==>",error);
+    
     return Promise.reject(error);
   }
 );
 
 export default service;
 
-export function putMethod(url: string, data: any, showSuccessMsg: boolean) {
+export function putMethod(url: string, data?: any, showSuccessMsg?: boolean) {
   return serviceSend(url, data, 'put', showSuccessMsg);
 }
 
-export function deleteMethod(url: string, data: any, showSuccessMsg: boolean) {
-  return serviceSend(
-    url,
-    {
-      params: data
-    },
-    'delete',
-    showSuccessMsg
-  );
+export function deleteMethod(url: string, data?: any, showSuccessMsg?: boolean) {
+  return serviceSend(url, { params: data }, 'delete', showSuccessMsg);
 }
 
-export function postMethod(
-  url: string,
-  data: any = {},
-  showSuccessMsg: boolean
-) {
-  return serviceSend(url, data, 'post', showSuccessMsg);
+export function postMethod(url: string, data?: any, showSuccessMsg?: boolean) {
+  return serviceSend(url, data || {}, 'post', showSuccessMsg);
 }
 
-export function getMethod(
-  url: string,
-  params: any = {},
-  showSuccessMsg: boolean
-) {
-  return serviceSend(
-    url,
-    {
-      params: params
-    },
-    'get',
-    showSuccessMsg
-  );
+export function getMethod(url: string, params?: any, showSuccessMsg?: boolean) {
+  return serviceSend(url, { params: params || {} }, 'get', showSuccessMsg);
 }
 
-function serviceSend(
-  url: string,
-  params = {},
-  method = 'post',
-  showSuccessMsg = false
-) {
+function serviceSend(url: string, params = {}, method = 'post', showSuccessMsg = false) {
   filterParams(params);
   return new Promise((resolve, reject) => {
     service[method](url, params)
