@@ -16,6 +16,8 @@ const HomeLayout = ({ userStore }: any) => {
       setPermissionLoad(false)
       return setHasRouterPermission(true)
     }
+    console.log(userStore.permission);
+    
     const hasPermission = permission.some((p: string) => { return userStore.permission.includes(p) })
     setHasRouterPermission(hasPermission)
     setPermissionLoad(false)

@@ -71,7 +71,6 @@ export const homeMenus = [
     path: 'projects',
     name: 'projects',
     label: '项目列表',
-    permission: ['a'],
     exec: true,
     element: <Projects />,
     children: [
