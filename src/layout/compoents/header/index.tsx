@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { Image, Dropdown, Menu } from 'antd';
 import { useNavigate, useLocation } from 'react-router-dom';
+import { inject, observer } from 'mobx-react';
 import { headerNavItems } from '@/routes'
 import cs from 'classnames';
 import imgModule from '@/assets/imgs';
@@ -13,10 +14,15 @@ const DropdownMenuItems = [
   { key: 'loginOut', label: '退出登录', path: '/researchpc/setting' }
 ];
 
-const Header = () => {
+const Header = ({ userStore }: any) => {
   const navigate = useNavigate();
   const location = useLocation();
   const [navCurKey, setNavCurKey] = useState<string[]>([]);
+  const [permissionItems, setPermissionItems] = useState<any[]>([]);
+  useEffect(() => {
+    const hasPermissionItems = headerNavItems.filter((v: any) => { return !v.permission?.length || v.permission.some((p: string) => { return userStore.permission.includes(p) }) })
+    setPermissionItems(hasPermissionItems)
+  },[])
   useEffect(() => {
     const { pathname } = location
     const keysArr = pathname.split('/').slice(2)
@@ -51,7 +57,7 @@ const Header = () => {
           <div className="col-w ft-18 ft-b">项目名称</div>
         </div>
         <div className="flex-1 flex-h-c h-full ml-20">
-          {headerNavItems.map((v) => (
+          {permissionItems.map((v: any) => (
             <div
               key={v.path}
               className={cs('home-layout-header__nav-item pointer flex-h-c', {
@@ -98,4 +104,4 @@ const Header = () => {
   );
 };
 
-export default Header;
+export default inject('userStore')(observer(Header));

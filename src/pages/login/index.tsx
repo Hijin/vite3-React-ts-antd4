@@ -2,13 +2,14 @@ import { useState } from "react";
 import { Button, Input, Form, Checkbox, message } from "antd";
 import { UserOutlined, LockOutlined } from '@ant-design/icons';
 import { useNavigate } from "react-router-dom";
+import { inject, observer } from 'mobx-react';
 import { Tool } from "@/utils";
 import imgModule from "@/assets/imgs";
 import "./index.less";
 
 const { safeTimeout } = Tool
 const LOGIN_STORAGE_KEY = 'userLoginInfo'
-const Login = () => {
+const Login = ({userStore}:any) => {
   const navigate = useNavigate()
   const [loading, setLoading] = useState(false)
   const formInitValue = JSON.parse(localStorage.getItem(LOGIN_STORAGE_KEY) ?? JSON.stringify({ remember: true }))
@@ -20,6 +21,7 @@ const Login = () => {
       setLoading(false)
       remember ? localStorage.setItem(LOGIN_STORAGE_KEY, JSON.stringify(values)) : localStorage.removeItem(LOGIN_STORAGE_KEY)
       message.success('登录成功')
+      userStore.setPermission(['a','b'])
       safeTimeout(() => {
         navigate('/researchpc/projects', { replace: true })
       }, 2000)
@@ -75,4 +77,4 @@ const Login = () => {
   );
 };
 
-export default Login
+export default inject('userStore')(observer(Login))

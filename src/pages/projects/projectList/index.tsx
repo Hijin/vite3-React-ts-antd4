@@ -3,7 +3,6 @@ import { Input, Button, Image, Tabs, Pagination } from 'antd';
 import { useNavigate } from 'react-router-dom';
 import { Add1Img } from '@/assets/imgs';
 import { Loading, SelectNet } from '@/components';
-import { getProjectList } from '@/service'
 import ProjectCard from '../components/projectCard';
 import './index.less';
 const { Search } = Input;
@@ -50,7 +49,6 @@ const ProjectList = () => {
   };
   const getLists = () => {
     setLoading(true);
-    getProjectList({id:1})
     setTimeout(() => {
       setLoading(false);
       const arr = [];

@@ -32,7 +32,8 @@ import imgModule from '@/assets/imgs';
  * label:菜单label
  * element：路由组件
  * selIcon:选中时图片
- * icon:未选中时图片
+ * icon:未选中时图片,
+* permission：路由/菜单权限['permission1','permission2'],未配置或者长度为0，默认都可访问
  */
 export const headerNavItems = [
   {
@@ -54,7 +55,7 @@ export const headerNavItems = [
     label: '随访管理',
     icon: imgModule.header_visit,
     selIcon: imgModule.header_visit_sel,
-    element: <Visit />
+    element: <Visit />,
   }
 ];
 /**
@@ -63,12 +64,14 @@ export const headerNavItems = [
  * label:菜单label
  * element：路由组件
  * hideInMenu：是否显示在菜单中
+ * permission：路由/菜单权限['permission1','permission2'],未配置或者长度为0，默认都可访问
  */
 export const homeMenus = [
   {
     path: 'projects',
     name: 'projects',
     label: '项目列表',
+    permission: ['a'],
     exec: true,
     element: <Projects />,
     children: [
@@ -91,7 +94,7 @@ export const homeMenus = [
     exec: true,
     // element: <Setting />,
     children: [
-      { path: "", hideInMenu: true, element: <Navigate to="user" />  },
+      { path: "", hideInMenu: true, element: <Navigate to="user" /> },
       { path: 'user', name: '员工管理', label: '员工管理', element: <UserSet /> },
       { path: 'user/detail', hideInMenu: true, name: '员工详情', label: '员工详情', element: <UserDetail /> },
       { path: 'center', name: '中心管理', label: '中心管理', element: <CenterSet /> },
@@ -107,8 +110,7 @@ export const homeMenus = [
     element: <Message />
   }
 ];
-
-export default [
+const routers = [
   {
     path: '/researchpc',
     name: '科研系统',
@@ -118,7 +120,7 @@ export default [
       ...homeMenus,
       ...headerNavItems,
       {
-        path: '/researchpc/personSettings',
+        path: 'personSettings',
         name: 'personSettings',
         element: <PersonSettings />
       },
@@ -139,3 +141,20 @@ export default [
   { path: '/researchpc/502', element: <PageError state='502' /> },
   { path: '*', element: <PageError state='404' /> }
 ];
+
+//根据路径获取路由权限配置
+export const checkPermission = (routes: any, fullPath: string, parentPath: string) => {
+  const _routes = routes ?? routers
+  for (const r of _routes) {
+    const { path, permission, children } = r
+    const _fullPath = path.startsWith('/') ? path : `${parentPath}/${path}`
+    if (_fullPath === fullPath) return permission
+    if (children?.length) {
+      const res: any = checkPermission(children, fullPath, _fullPath)
+      if (res) return res
+    }
+  }
+  return null
+}
+
+export default routers

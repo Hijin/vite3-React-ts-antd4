@@ -1,11 +1,12 @@
 import { useState, useEffect } from 'react';
 import { Menu } from 'antd';
 import { useNavigate, useLocation } from 'react-router-dom';
+import { inject, observer } from 'mobx-react';
 import cs from 'classnames';
 import { homeMenus } from '@/routes';
 import './index.less';
 
-const SideMenu = () => {
+const SideMenu = ({ userStore }: any) => {
   const navigate = useNavigate();
   const location = useLocation();
   const [menuItems, setMenuItems] = useState<any[]>([]);
@@ -25,6 +26,7 @@ const SideMenu = () => {
   const initMenus = (data: any[]) => {
     const menus = data
       .filter((m: any) => !m.hideInMenu)
+      .filter((v: any) => { return !v.permission?.length || v.permission.some((p: string) => { return userStore.permission.includes(p) }) })
       .map((v: any) => {
         const newMenus: any = {
           label: v.label,
@@ -43,17 +45,12 @@ const SideMenu = () => {
     return menus;
   };
   const handleMenuClick = (e: any) => {
-    console.log(222);
-
     const { keyPath, key } = e;
     if (key === curKey) return;
     setCurKey(key);
     const path = keyPath.reverse().join('/');
     navigate(path);
   };
-
-  console.log('menuItems', menuItems);
-
   return (
     <div
       className={cs('home-layout-menu pos-rlt bg-w', {
@@ -79,4 +76,4 @@ const SideMenu = () => {
     </div>
   );
 };
-export default SideMenu;
+export default inject('userStore')(observer(SideMenu));
