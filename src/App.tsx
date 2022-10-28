@@ -6,6 +6,7 @@ import { ConfigProvider } from 'antd';
 import routes from '@/routes';
 import store from '@/store';
 import 'antd/dist/antd.less';
+import '@/assets/styles/reset.less';
 import '@/assets/styles/common.less';
 import '@/assets/styles/overwrite.less';
 import 'moment/dist/locale/zh-cn';
