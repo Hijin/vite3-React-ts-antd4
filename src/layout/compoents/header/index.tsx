@@ -11,18 +11,19 @@ const DropdownMenuItems = [
   { key: 'infoSet', label: '资料设置', path: '/researchpc/personSettings?index=0' },
   { key: 'password', label: '修改密码', path: '/researchpc/personSettings?index=1' },
   { key: 'loginRecord', label: '登录记录', path: '/researchpc/personSettings?index=2' },
-  { key: 'loginOut', label: '退出登录', path: '/researchpc/setting' }
+  { key: 'loginOut', label: '退出登录', path: '' }
 ];
 
 const Header = ({ userStore }: any) => {
   const navigate = useNavigate();
   const location = useLocation();
+  const { userInfo, permission, currentProject } = userStore
   const [navCurKey, setNavCurKey] = useState<string[]>([]);
   const [permissionItems, setPermissionItems] = useState<any[]>([]);
   useEffect(() => {
-    const hasPermissionItems = headerNavItems.filter((v: any) => { return !v.permission?.length || v.permission.some((p: string) => { return userStore.permission.includes(p) }) })
+    const hasPermissionItems = headerNavItems.filter((v: any) => { return !v.permission?.length || v.permission.some((p: string) => { return permission.includes(p) }) })
     setPermissionItems(hasPermissionItems)
-  },[])
+  }, [])
   useEffect(() => {
     const { pathname } = location
     const keysArr = pathname.split('/').slice(2)
@@ -35,8 +36,13 @@ const Header = ({ userStore }: any) => {
   const handleMenuClick = (e: any) => {
     const { key } = e;
     const clickMenu: any = DropdownMenuItems.find((v) => v.key === key);
-    navigateToPath(clickMenu.path);
+    clickMenu.path && navigateToPath(clickMenu.path);
+    clickMenu.key === 'loginOut' && handleLoginOut();
   };
+  const handleLoginOut = () => {
+    userStore.clearUserStore()
+    navigate('/researchpc/login')
+  }
   const navigateToPath = (path: string) => {
     const { pathname } = location;
     if (pathname === path) return;
@@ -54,9 +60,9 @@ const Header = ({ userStore }: any) => {
             preview={false}
             className="home-layout-header__logo"
           />
-          <div className="col-w ft-18 ft-b">项目名称</div>
+          <div className="col-w ft-18 ft-b">{currentProject?.name || "科研系统"}</div>
         </div>
-        <div className="flex-1 flex-h-c h-full ml-20">
+        {currentProject && <div className="flex-1 flex-h-c h-full ml-20">
           {permissionItems.map((v: any) => (
             <div
               key={v.path}
@@ -81,6 +87,7 @@ const Header = ({ userStore }: any) => {
             </div>
           ))}
         </div>
+        }
       </div>
       <Dropdown
         className="flex-h-c"
@@ -91,12 +98,12 @@ const Header = ({ userStore }: any) => {
       >
         <div>
           <Image
-            src={imgModule.avatar_default}
+            src={userInfo.avatar || imgModule.avatar_default}
             preview={false}
             className="home-layout-header__avatar"
           />
           <div className="home-layout-header__user-name col-w ft-14 ml-10">
-            王医生
+            {userInfo.name}
           </div>
         </div>
       </Dropdown>

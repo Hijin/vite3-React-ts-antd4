@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import { Image, Button, Modal } from 'antd';
+import { inject } from 'mobx-react';
 import { ExclamationCircleOutlined } from '@ant-design/icons';
 import { useNavigate } from 'react-router-dom';
 import cs from 'classnames';
@@ -30,7 +31,7 @@ const StateConfigs = {
     actions: ['详情']
   }
 };
-const ProjectCard = ({ info }: any) => {
+const ProjectCard = ({ info,userStore }: any) => {
   const navigate = useNavigate()
   const [stateConfig, setStateConfig] = useState<any>({});
   useEffect(() => {
@@ -40,7 +41,8 @@ const ProjectCard = ({ info }: any) => {
     setStateConfig(config);
   }, [info]);
 
-  const handleBottomAction = (action: string) => {
+  const handleBottomAction = (action: string,event:Event) => {
+    event.stopPropagation()
     if (action === '详情') {
       return navigate(`create?id=${info.id}&detail=1`)
     }
@@ -63,9 +65,13 @@ const ProjectCard = ({ info }: any) => {
       },
     });
   }
+  const handleProjectClick = () =>{
+    userStore.setCurrentProject(info)
+    navigate(`/researchpc/suffer?id=${info.id}`)
+  }
 
   return (
-    <div className="project-card">
+    <div className="project-card pointer" onClick={handleProjectClick}>
       <div
         className={cs('project-card__body br-10', stateConfig.bodyClassName)}
       >
@@ -128,7 +134,7 @@ const ProjectCard = ({ info }: any) => {
         </div>
         <div className="project-card__bottom mt-30 flex-b">
           {stateConfig.actions?.map((v: any) => (
-            <Button type="link" key={v} onClick={() => handleBottomAction(v)}>
+            <Button type="link" key={v} onClick={(e) => handleBottomAction(v,e)}>
               {v}
             </Button>
           ))}
@@ -138,4 +144,4 @@ const ProjectCard = ({ info }: any) => {
   );
 };
 
-export default ProjectCard;
+export default inject('userStore')(ProjectCard);

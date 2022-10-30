@@ -55,7 +55,7 @@ const ProjectList = () => {
       for (let i = 1; i < 9; i++) {
         arr.push({
           id: i,
-          name: '项目名称',
+          name: `项目名称${i}`,
           state: i % 3,
           timeStart: '2022.03.02',
           timeEnd: '2023.03.02',

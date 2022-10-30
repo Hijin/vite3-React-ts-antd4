@@ -9,6 +9,7 @@ import './index.less';
 const SideMenu = ({ userStore }: any) => {
   const navigate = useNavigate();
   const location = useLocation();
+  const { permission, currentProject } = userStore
   const [menuItems, setMenuItems] = useState<any[]>([]);
   const [curKey, setCurKey] = useState<any>();
   const [selectedKeys, setSelectedKeys] = useState<any[]>([]);
@@ -16,7 +17,7 @@ const SideMenu = ({ userStore }: any) => {
   useEffect(() => {
     const menus = initMenus(homeMenus);
     setMenuItems(menus);
-  }, []);
+  }, [currentProject]);
   useEffect(() => {
     const { pathname } = location
     const keysArr = pathname.split('/').slice(2)
@@ -26,7 +27,8 @@ const SideMenu = ({ userStore }: any) => {
   const initMenus = (data: any[]) => {
     const menus = data
       .filter((m: any) => !m.hideInMenu)
-      .filter((v: any) => { return !v.permission?.length || v.permission.some((p: string) => { return userStore.permission.includes(p) }) })
+      .filter((v: any) => { return !v.showedWithProject || (v.showedWithProject && currentProject) })
+      .filter((v: any) => { return !v.permission?.length || v.permission.some((p: string) => { return permission.includes(p) }) })
       .map((v: any) => {
         const newMenus: any = {
           label: v.label,

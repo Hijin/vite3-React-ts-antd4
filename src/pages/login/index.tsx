@@ -20,11 +20,12 @@ const Login = ({userStore}:any) => {
     safeTimeout(() => {
       setLoading(false)
       remember ? localStorage.setItem(LOGIN_STORAGE_KEY, JSON.stringify(values)) : localStorage.removeItem(LOGIN_STORAGE_KEY)
-      message.success('登录成功')
+      message.success({content:'登录成功',duration:1})
       userStore.setPermission(['a','b'])
+      userStore.setUserInfo({name:'王医生',avatar:'https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png'})
       safeTimeout(() => {
         navigate('/researchpc/projects', { replace: true })
-      }, 2000)
+      }, 1500)
     }, 1000)
   };
 

@@ -33,7 +33,8 @@ import imgModule from '@/assets/imgs';
  * element：路由组件
  * selIcon:选中时图片
  * icon:未选中时图片,
-* permission：路由/菜单权限['permission1','permission2'],未配置或者长度为0，默认都可访问
+ * showedWithProject: 是否需要选择项目后显示
+ * permission：路由/菜单权限['permission1','permission2'],未配置或者长度为0，默认都可访问
  */
 export const headerNavItems = [
   {
@@ -90,6 +91,7 @@ export const homeMenus = [
     path: 'setting',
     name: 'setting',
     label: '基础设置',
+    showedWithProject:true,
     exec: true,
     // element: <Setting />,
     children: [
@@ -105,6 +107,7 @@ export const homeMenus = [
     path: 'message',
     name: 'message',
     label: '消息中心',
+    showedWithProject:true,
     exec: true,
     element: <Message />
   }
