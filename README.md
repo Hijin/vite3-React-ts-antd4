@@ -1,5 +1,3 @@
-# 科研系统 PC 端
-
 ## 框架 vite3+react+antd@4+react-router-dom@6 + mobx@6 + mobx-react@7 + axios
 
 ### vite3 (https://cn.vitejs.dev/config/shared-options.html#publicdir)
