@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { Input, Button, Image, Tabs, Pagination } from 'antd';
+import { Input, Button, Image, Tabs, Pagination, Empty } from 'antd';
 import { useNavigate } from 'react-router-dom';
 import { Add1Img } from '@/assets/imgs';
 import { Loading, SelectNet } from '@/components';
@@ -131,21 +131,23 @@ const ProjectList = () => {
         onTabClick={handleTabClick}
       />
       <div className="flex-1 flex-col over-hide">
-        <div className="flex-1 over-auto pos-rlt flex-wp">
-          <Loading loading={loading} />
-          {list.map((v): any => (
-            <ProjectCard info={v} key={v.id} />
-          ))}
-        </div>
-        <div className="mt-20 flex-v-e">
-          <Pagination
-            current={paginationInfo.pageNum}
-            pageSize={paginationInfo.pageSize}
-            total={paginationInfo.total}
-            showSizeChanger={false}
-            onChange={handlePageChange}
-          />
-        </div>
+        {!loading && list.length === 0 ? <Empty /> : <>
+          <div className="flex-1 over-auto pos-rlt flex-wp">
+            <Loading loading={loading} />
+            {list.map((v): any => (
+              <ProjectCard info={v} key={v.id} />
+            ))}
+          </div>
+          <div className="mt-20 flex-v-e">
+            <Pagination
+              current={paginationInfo.pageNum}
+              pageSize={paginationInfo.pageSize}
+              total={paginationInfo.total}
+              showSizeChanger={false}
+              onChange={handlePageChange}
+            />
+          </div>
+        </>}
       </div>
     </div>
   );
