@@ -134,7 +134,7 @@ const ProjectCard = ({ info,userStore }: any) => {
         </div>
         <div className="project-card__bottom mt-30 flex-b">
           {stateConfig.actions?.map((v: any) => (
-            <Button type="link" key={v} onClick={(e) => handleBottomAction(v,e)}>
+            <Button type="link" key={v} onClick={(e:any) => handleBottomAction(v,e)}>
               {v}
             </Button>
           ))}

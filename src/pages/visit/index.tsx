@@ -81,7 +81,7 @@ const columns = [
     title: '操作',
     dataIndex: 'operate',
     key: 'operate',
-    render(n: unknown, _) {
+    render(n: unknown, _:any) {
       return (
         <Link to={`/researchpc/suffer/baseline?isg=${_?.isGroup || 1}&tl=${_?.title || ''}&isv=${_?.isView}`}>详情</Link>
       )

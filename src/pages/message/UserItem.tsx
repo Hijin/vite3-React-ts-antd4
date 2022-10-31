@@ -316,7 +316,7 @@ const UserItem = (props: any) => {
   const handleOk = () => {
     lastInfo.map((info: any) => {
       if (info.identity === 1) {
-        targetId = info.targetId;
+        // targetId = info.targetId;
       }
     });
     // sendInfo.run({ message: textValue, targetId: targetId });
