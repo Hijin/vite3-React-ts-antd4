@@ -9,7 +9,7 @@ import "./index.less";
 
 const { safeTimeout } = Tool
 const LOGIN_STORAGE_KEY = 'userLoginInfo'
-const Login = ({userStore}:any) => {
+const Login = inject('userStore')(observer(({ userStore }: any) => {
   const navigate = useNavigate()
   const [loading, setLoading] = useState(false)
   const formInitValue = JSON.parse(localStorage.getItem(LOGIN_STORAGE_KEY) ?? JSON.stringify({ remember: true }))
@@ -20,11 +20,11 @@ const Login = ({userStore}:any) => {
     safeTimeout(() => {
       setLoading(false)
       remember ? localStorage.setItem(LOGIN_STORAGE_KEY, JSON.stringify(values)) : localStorage.removeItem(LOGIN_STORAGE_KEY)
-      message.success({content:'登录成功',duration:1})
-      userStore.setPermission(['a','b'])
-      userStore.setUserInfo({name:'王医生',avatar:'https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png'})
+      message.success({ content: '登录成功', duration: 1 })
+      userStore.setPermission(['a', 'b'])
+      userStore.setUserInfo({ name: '王医生', avatar: 'https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png' })
       safeTimeout(() => {
-        navigate('/researchpc/projects', { replace: true })
+        navigate('/home', { replace: true })
       }, 1500)
     }, 1000)
   };
@@ -32,8 +32,7 @@ const Login = ({userStore}:any) => {
   return (
     <div className="login">
       <div className="login__form">
-        <img src={imgModule.logo2} width="180" className="login__form__logo" />
-        <div className="login__form__head">科研系统</div>
+        <img src={imgModule.logo} width="50" className="login__form__logo" />
         <Form
           name="basic"
           initialValues={formInitValue}
@@ -70,12 +69,9 @@ const Login = ({userStore}:any) => {
           </Form.Item>
         </Form>
       </div>
-      <footer className="login__footer">
-        ©2022 Powered by LeafLong Therapeutics. All Rights Reserved.
-        版权归上海朗曳医疗科技所有
-      </footer>
     </div>
   );
-};
+})
+);
 
-export default inject('userStore')(observer(Login))
+export default Login

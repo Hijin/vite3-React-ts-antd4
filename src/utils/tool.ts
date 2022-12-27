@@ -6,7 +6,21 @@ export const safeTimeout = (fn: Function, timeout: number) => {
     t = null;
   }, timeout);
 };
-
+// eslint-disable-next-line
+export function debounce(this: any, fn: Function, delay = 500) {
+  let t: any = null;
+  // eslint-disable-next-line
+  let _this: any = this;
+  return function (...arg: any) {
+    if (t) clearTimeout(t);
+    t = setTimeout(() => {
+      // eslint-disable-next-line
+      fn.apply(_this, arg);
+      clearTimeout(t)
+      t = null;
+    }, delay);
+  }
+}
 export function addZero(num: number | string) {
   return Number(num) < 10 ? `0${num}` : num;
 }
@@ -21,8 +35,10 @@ export const formatDate = (
   date: string | Date | number,
   format = 'yyyy-MM-dd  hh:mm:ss'
 ) => {
-  if (!date) return '-';
   const dateValue = new Date(date);
+  if (!date || isNaN(dateValue.getTime())) {
+    return '-'
+  }
   const y = dateValue.getFullYear(),
     M = addZero(dateValue.getMonth() + 1),
     d = addZero(dateValue.getDate()),
@@ -39,9 +55,8 @@ export const formatDate = (
   if (format.indexOf('年') > 0) {
     splitChar = '';
   }
-  const dayString = `${y}${splitChar ? splitChar : '年'}${M}${
-    splitChar ? splitChar : '月'
-  }${d}${splitChar ? '' : '日'}`;
+  const dayString = `${y}${splitChar ? splitChar : '年'}${M}${splitChar ? splitChar : '月'
+    }${d}${splitChar ? '' : '日'}`;
 
   if (format.indexOf('ss') > 0) {
     return `${dayString}  ${h}:${m}:${s}`;
@@ -51,3 +66,7 @@ export const formatDate = (
   }
   return dayString;
 };
+
+export const notNull = (val: any) => {
+  return val !== null && val !== undefined
+}

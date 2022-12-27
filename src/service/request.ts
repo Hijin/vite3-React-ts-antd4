@@ -3,17 +3,18 @@
  */
 import axios from 'axios';
 import { message } from 'antd';
-
+import { debounce, safeTimeout, notNull } from '@/utils/tool';
+import { getToken } from '@/utils/storage'
 // 错误信息，防止多次提示
 let errMsg = '';
+const toLogin = debounce(relaunchLogin);
+const isProduction = process.env.NODE_ENV === 'production';
+const host = import.meta.env.VITE_HOST;
+export const baseURL = (isProduction ? host : '/api');
 
-const baseURL = import.meta.env.VITE_HOST
 const service: any = axios.create({
   baseURL, // 自动配置的后台的请求的地址
-  timeout: 300 * 1000
-  // headers: {'Content-Type': 'application/json'},
-  // responseType: 'json', // 默认的
-  // headers: {'Authorization': "Bearer " + utils.getToken()},
+  timeout: 20 * 1000
 });
 
 /**
@@ -21,13 +22,13 @@ const service: any = axios.create({
  */
 service.interceptors.request.use(
   (config: any) => {
-    const token = '';
+    const token = getToken();
     if (token) {
       config.headers.Authorization = token;
     }
     return config;
   },
-  (error: any) => {    
+  (error: any) => {
     return Promise.reject(error);
   }
 );
@@ -38,55 +39,53 @@ service.interceptors.request.use(
 service.interceptors.response.use(
   (response: any) => {
     const res = response.data;
-    console.log('res==>',response);
-    
+    const configData = JSON.parse(typeof response.config.data === 'string' ? response.config.data : '{}');
     if (res.code === 200) {
       return Promise.resolve(res);
-    } else {
-      tostMsg(res.desc);
+    }
+    if (res.code === 401 || (res.code === 500 && res.msg?.indexOf('身份信息异常') > -1)) {
+      tostMsg('token已过期,请重新登录！');
+      // 未忽略登录
+      !configData.ignoreLogin && toLogin();
       return Promise.reject(res);
     }
+    tostMsg(res.msg || '服务器开小差了，请稍等~~');
+    return Promise.reject(res);
   },
   (error: any) => {
-    const res = error.response.data;
-    if (res.code === 401) {
-      tostMsg('token已过期,请重新登录！');
-    } else if (res.code === 403) {
-      tostMsg('无接口权限，请向管理员申请权限！');
-    } else {
-      tostMsg('服务器开小差了，请稍等~~');
-    }
-    console.log("error==>",error);
-    
     return Promise.reject(error);
   }
 );
 
 export default service;
 
-export function putMethod(url: string, data?: any, showSuccessMsg?: boolean) {
-  return serviceSend(url, data, 'put', showSuccessMsg);
+export function put(url: string, data?: any) {
+  return serviceSend({ url, params: { ...data, filter: false }, method: 'put' });
 }
 
-export function deleteMethod(url: string, data?: any, showSuccessMsg?: boolean) {
-  return serviceSend(url, { params: data }, 'delete', showSuccessMsg);
+export function deletes(url: string, data?: any,) {
+  return serviceSend({ url, params: { params: data }, method: 'delete' });
 }
 
-export function postMethod(url: string, data?: any, showSuccessMsg?: boolean) {
-  return serviceSend(url, data || {}, 'post', showSuccessMsg);
+export function post(url: string, data?: any) {
+  return serviceSend({ url, params: data || {} });
 }
 
-export function getMethod(url: string, params?: any, showSuccessMsg?: boolean) {
-  return serviceSend(url, { params: params || {} }, 'get', showSuccessMsg);
+export function get(url: string, params?: any,) {
+  return serviceSend({ url, params: params || {}, method: 'get' })
 }
 
-function serviceSend(url: string, params = {}, method = 'post', showSuccessMsg = false) {
-  filterParams(params);
+function serviceSend({ url, params = {}, method = 'post' }: any) {
+  const { filter = true, ...reset } = params ?? {}
+  filter && filterParams(reset);
   return new Promise((resolve, reject) => {
-    service[method](url, params)
+    service[method](url, reset)
       .then((res: any) => {
-        resolve(res.data);
-        showSuccessMsg && res.desc && message.success(res.desc);
+        if (notNull(res.data)) {
+          resolve(res.data);
+        } else {
+          resolve(res);
+        }
       })
       .catch((error: any) => {
         reject(error);
@@ -98,11 +97,17 @@ function tostMsg(msg: string) {
   if (errMsg.length) return;
   errMsg = msg;
   message.error(errMsg);
-  let t: any = setTimeout(() => {
+  safeTimeout(() => {
     errMsg = '';
-    clearTimeout(t);
-    t = null;
   }, 2000);
+}
+
+function relaunchLogin() {
+  const { pathname, origin } = window.location;
+  if (pathname === '/login') {
+    return;
+  }
+  window.location.href = `${origin}/login`;
 }
 
 // 过滤无效参数

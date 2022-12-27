@@ -6,9 +6,17 @@ import path from 'path';
 // const isProduction = process.env.NODE_ENV === 'production';
 
 export default defineConfig({
-  // base: isProduction ? '/researchpc/' : '/',
-  base: '/researchpc/',
   plugins: [react()],
+  server: {
+    proxy: {
+      // 跨域代理
+      '/api': {
+        target: 'https://www.baidu.com/',
+        changeOrigin: true,
+        rewrite: (path) => path.replace(/^\/api/, '')
+      }
+    }
+  },
   resolve: {
     alias: {
       '@': path.resolve(__dirname, './src/')

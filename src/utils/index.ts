@@ -1,2 +1,2 @@
 export * as Tool from './tool';
-export * as Constants from './constants';
+export * as Storage from './storage';
